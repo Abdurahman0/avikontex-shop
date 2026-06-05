@@ -1,0 +1,336 @@
+{
+  "brand": {
+    "name": "AVIKONTEX",
+    "tagline": "Clinical technologies and equipment"
+  },
+  "language": {
+    "uz": "Uzbek",
+    "ru": "Russian",
+    "en": "English"
+  },
+  "nav": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "about": "About us",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "searchPlaceholder": "Search by product or category",
+    "searchAria": "Search",
+    "language": "Language",
+    "orders": "Orders"
+  },
+  "common": {
+    "currency": "UZS",
+    "rating": "Rating",
+    "viewAll": "View all",
+    "free": "Free",
+    "loading": "Loading...",
+    "continueShopping": "Continue shopping",
+    "outOfStock": "Out of stock"
+  },
+  "home": {
+    "badge": "New project",
+    "title": "AVIKONTEX clinical technologies e-commerce platform",
+    "description": "A professional catalog and order flow for diagnostic, monitoring, laboratory, and surgical equipment.",
+    "browseButton": "Browse products",
+    "trackButton": "Track latest order",
+    "featuredTitle": "Recommended clinical equipment"
+  },
+  "catalog": {
+    "title": "Clinical technologies catalog",
+    "description": "6,000+ products: quickly choose by category, price, and search. Equipment tailored for clinics and medical centers.",
+    "categoryLabel": "Category",
+    "maxPrice": "Maximum price",
+    "navigatorTitle": "Catalog navigation",
+    "navigatorDescription": "Choose a main section and drill down into subcategories.",
+    "subcategoryTitle": "Subcategories",
+    "allInParent": "All in section",
+    "toggleSubcategories": "Expand or collapse subcategories",
+    "mobileSearchLabel": "Search inside catalog",
+    "mobileSearchPlaceholder": "Search product or category...",
+    "mobileFilterButton": "Filter",
+    "applyFilters": "Apply filters",
+    "resetFilters": "Reset",
+    "closeFilters": "Close filters",
+    "loadMoreProducts": "Load more products",
+    "noProductsTitle": "No matching equipment found",
+    "noProductsDescription": "Try adjusting the filters or updating your search query.",
+    "totalCatalogLabel": "Catalog size",
+    "visibleResultsLabel": "Visible products",
+    "categoriesLabel": "Main categories",
+    "categorySectionTitle": "Browse by categories",
+    "categorySectionDescription": "Each section is grouped by clinical use. Tap a category for faster access."
+  },
+  "categories": {
+    "all": "All",
+    "diagnostic_systems": "Diagnostic systems",
+    "ultrasound_imaging": "Ultrasound diagnostics",
+    "xray_imaging": "X-ray diagnostics",
+    "monitoring_systems": "Monitoring systems",
+    "bedside_monitoring": "Bedside monitoring",
+    "icu_monitoring": "ICU monitoring",
+    "laboratory_systems": "Laboratory systems",
+    "hematology_analyzers": "Hematology analyzers",
+    "biochemistry_analyzers": "Biochemistry analyzers",
+    "surgical_systems": "Surgical systems",
+    "electrosurgery_units": "Electrosurgical units",
+    "surgical_lighting": "Surgical lighting",
+    "sterilization_systems": "Sterilization systems",
+    "plasma_sterilizers": "Plasma sterilizers",
+    "steam_autoclaves": "Steam autoclaves",
+    "rehabilitation_systems": "Rehabilitation systems",
+    "rehab_treadmills": "Rehabilitation treadmills",
+    "therapy_devices": "Therapy devices"
+  },
+  "productCard": {
+    "addToCart": "Add to cart",
+    "toggleWishlist": "Add to or remove from wishlist"
+  },
+  "productDetails": {
+    "notFoundTitle": "Product not found",
+    "notFoundDescription": "The requested product is not available in the catalog.",
+    "backToCatalog": "Back to catalog",
+    "material": "Technology",
+    "fit": "Use case",
+    "origin": "Manufacturer",
+    "stock": "Stock",
+    "save": "Save",
+    "saved": "Saved",
+    "relatedTitle": "Similar products",
+    "relatedDescription": "Popular items from the same category and recommended alternatives."
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "emptyTitle": "Wishlist is empty",
+    "emptyDescription": "Tap the heart icon to save products here.",
+    "emptyAction": "Browse products"
+  },
+  "cart": {
+    "emptyTitle": "Cart is empty",
+    "emptyDescription": "Add products from the catalog to continue with your order.",
+    "emptyAction": "Go to catalog",
+    "remove": "Remove",
+    "summary": "Order summary",
+    "subtotal": "Products subtotal",
+    "delivery": "Delivery",
+    "total": "Total",
+    "checkout": "Proceed to checkout",
+    "qty": "Qty"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "description": "Fill in customer information and confirm the order.",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "address": "Delivery address",
+    "payment": "Payment method",
+    "cashOnDelivery": "Cash on delivery",
+    "bankTransfer": "Bank transfer",
+    "confirm": "Confirm order",
+    "validationError": "Please fill in all required fields.",
+    "emptyError": "Unable to place the order. Your cart is empty.",
+    "success": "Order submitted successfully."
+  },
+  "tracking": {
+    "notFoundTitle": "Order not found",
+    "notFoundDescription": "There is no order with this number yet.",
+    "notFoundAction": "Continue shopping",
+    "title": "Track order",
+    "orderId": "Order number",
+    "customer": "Customer",
+    "phone": "Phone",
+    "address": "Address",
+    "itemQty": "Quantity",
+    "total": "Total",
+    "createdAt": "Order date",
+    "estimatedDelivery": "Estimated delivery",
+    "progressTitle": "Order status",
+    "itemsTitle": "Order items"
+  },
+  "status": {
+    "pending_confirmation": "Pending confirmation",
+    "packed": "Being packed",
+    "shipped": "Shipped",
+    "delivered": "Delivered"
+  },
+  "about": {
+    "title": "About AVIKONTEX",
+    "description": "AVIKONTEX is focused on supplying clinical technologies, diagnostics, and medical equipment. The website provides fast selection, cart, and order flow for clinics.",
+    "card1Title": "Certified equipment",
+    "card1Text": "Reliable products suited for clinical practice with clearly listed technical parameters.",
+    "card2Title": "Professional service",
+    "card2Text": "Specialist support for selection, delivery, and commissioning.",
+    "card3Title": "Large catalog",
+    "card3Text": "Quick access to 6,000+ products by category and price."
+  },
+  "faq": {
+    "title": "FAQ",
+    "description": "Answers to the most common questions about the store and orders.",
+    "items": [
+      {
+        "q": "How do I place an order?",
+        "a": "Add the product to the cart, go to the checkout page, enter your contact and address details, and confirm the order."
+      },
+      {
+        "q": "Which payment methods are available?",
+        "a": "At the moment, cash on delivery and bank transfer are available. Online payment integration will be added in the next stage."
+      },
+      {
+        "q": "Can I track my order status?",
+        "a": "Yes. After the order is confirmed, an order number is generated and the tracking page becomes available."
+      },
+      {
+        "q": "How long does delivery take?",
+        "a": "In Tashkent it is usually delivered the same day or the next day. For other regions, it takes 2-4 business days."
+      },
+      {
+        "q": "What happens if a product is out of stock?",
+        "a": "Out-of-stock products are marked separately and cannot be added to the cart."
+      }
+    ],
+    "searchPlaceholder": "Search your question...",
+    "noResults": "No questions found for this filter.",
+    "helpTitle": "Did not find your answer?",
+    "helpDescription": "Our team can help with orders, delivery, and product questions.",
+    "helpButton": "Go to contact page",
+    "categories": {
+      "orders": "Orders",
+      "shipping": "Delivery",
+      "payment": "Payment",
+      "products": "Products"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Get in touch with our team about diagnostics, laboratory, and clinical equipment.",
+    "phone": "Phone",
+    "telegram": "Telegram",
+    "address": "Address",
+    "addressValue": "Tashkent, Uzbekistan",
+    "email": "Email",
+    "responseTime": "We usually respond within 30-60 minutes",
+    "hoursTitle": "Working hours",
+    "hoursWeekdays": "Monday - Friday: 09:00 - 19:00",
+    "hoursWeekend": "Saturday: 10:00 - 16:00, Sunday: closed",
+    "needHelpTitle": "Need urgent help?",
+    "needHelpDescription": "Call us for urgent questions, or send an email for a detailed request.",
+    "callAction": "Call now",
+    "emailAction": "Send email",
+    "faqTitle": "Frequently asked questions",
+    "faqDescription": "Quick answers about orders, payment, and delivery are available in the FAQ section.",
+    "faqAction": "Open FAQ"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "backHome": "Back to home"
+  },
+  "footer": {
+    "title": "AVIKONTEX Clinical E-commerce",
+    "description": "Professional online catalog, cart, and order system for clinical technologies.",
+    "rights": "All rights reserved.",
+    "quickLinks": "Quick links",
+    "customerCare": "Customer care",
+    "contactUs": "Contact information",
+    "bottomNote": "AVIKONTEX - clinical technologies and medical equipment platform"
+  },
+  "products": {
+    "p1": {
+      "name": "Portable ultrasound scanner X8",
+      "description": "A high-precision ultrasound device for small clinics and mobile diagnostic teams.",
+      "material": "Digital B/W and Color Doppler technology",
+      "fit": "Obstetrics, therapy, and general diagnostics",
+      "origin": "AVK MedTech"
+    },
+    "p2": {
+      "name": "Digital X-ray sensor DR17",
+      "description": "Flat-panel X-ray sensor with fast capture and low radiation exposure.",
+      "material": "17x17 Flat Panel Detector, AES protection",
+      "fit": "Traumatology and general radiology",
+      "origin": "AVK Imaging"
+    },
+    "p3": {
+      "name": "Bedside patient monitor PM10",
+      "description": "Continuously tracks heart rhythm, SpO2, NIBP, and respiration at the bedside.",
+      "material": "10.1\" TFT display, multi-parameter monitoring",
+      "fit": "Inpatient wards and emergency care",
+      "origin": "AVK Monitor Systems"
+    },
+    "p4": {
+      "name": "ICU multiparameter monitor MP12",
+      "description": "Advanced monitoring and alarm functions for intensive care departments.",
+      "material": "Extended EtCO2, IBP, and Temp modules",
+      "fit": "Intensive care and operating rooms",
+      "origin": "AVK Monitor Systems"
+    },
+    "p5": {
+      "name": "Hematology analyzer HA320",
+      "description": "Stable and fast laboratory device for blood samples with 3-part differential analysis.",
+      "material": "Automatic sampling and internal calibration",
+      "fit": "Clinical laboratories and diagnostic centers",
+      "origin": "AVK Lab Instruments"
+    },
+    "p6": {
+      "name": "Biochemistry analyzer BA200",
+      "description": "Compact system designed for high-throughput biochemical testing.",
+      "material": "Random-access biochemistry platform",
+      "fit": "Medical and preventive laboratories",
+      "origin": "AVK Lab Instruments"
+    },
+    "p7": {
+      "name": "Electrosurgical unit ESU-400",
+      "description": "Provides safe electrosurgery with coagulation and cutting modes.",
+      "material": "Monopolar and bipolar output channels",
+      "fit": "General surgery and gynecology",
+      "origin": "AVK Surgical"
+    },
+    "p8": {
+      "name": "LED surgical light SkyLED",
+      "description": "Professional operating light system with shadow-free illumination and high color rendering.",
+      "material": "Multi-segment LED module and sensor control",
+      "fit": "Operating rooms and procedure rooms",
+      "origin": "AVK Surgical"
+    },
+    "p9": {
+      "name": "Plasma sterilizer PS60",
+      "description": "Safe low-temperature sterilization for delicate medical instruments.",
+      "material": "H2O2 plasma sterilization cycle",
+      "fit": "Central sterilization departments",
+      "origin": "AVK SteriTech"
+    },
+    "p10": {
+      "name": "Autoclave Class B 23L",
+      "description": "Sterilizes medical instruments under pressure according to clinical standards.",
+      "material": "Class B vacuum steam sterilization",
+      "fit": "Dentistry and small operating units",
+      "origin": "AVK SteriTech"
+    },
+    "p11": {
+      "name": "Rehabilitation treadmill RT5",
+      "description": "Supportive treadmill for physiotherapy and mobility recovery programs.",
+      "material": "Load sensor and stabilization system",
+      "fit": "Rehabilitation centers",
+      "origin": "AVK Rehab"
+    },
+    "p12": {
+      "name": "CPM knee therapy device KM2",
+      "description": "Helps restore knee joints with passive motion after surgery.",
+      "material": "Programmable ROM and session control",
+      "fit": "Orthopedic and trauma rehabilitation",
+      "origin": "AVK Rehab"
+    }
+  },
+  "orders": {
+    "title": "Order list",
+    "description": "View all your orders and track their status.",
+    "emptyTitle": "No orders yet",
+    "emptyDescription": "Your orders will appear here after you purchase products.",
+    "emptyAction": "Browse products",
+    "orderId": "Order number",
+    "createdAt": "Date",
+    "itemsCount": "Items count",
+    "total": "Total",
+    "trackButton": "Track"
+  }
+}

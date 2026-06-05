@@ -6,7 +6,7 @@ import {
   HiOutlineMagnifyingGlass,
   HiChevronDown,
 } from 'react-icons/hi2'
-import { UZ, RU } from 'country-flag-icons/react/3x2'
+import { UZ, RU, US } from 'country-flag-icons/react/3x2'
 import { useTranslation } from 'react-i18next'
 import { useShopStore } from '../../store/shopStore'
 
@@ -45,8 +45,9 @@ function SiteHeader() {
 
   const languageOptions = useMemo(
     () => [
-      { code: 'uz', Flag: UZ },
-      { code: 'ru', Flag: RU },
+      { code: 'uz', Flag: UZ, fallbackLabel: 'Uzbek' },
+      { code: 'ru', Flag: RU, fallbackLabel: 'Russian' },
+      { code: 'en', Flag: US, fallbackLabel: 'English' },
     ],
     []
   )
@@ -184,7 +185,7 @@ function SiteHeader() {
                   }`}
                 >
                   <option.Flag className='h-4 w-5 rounded-[2px] object-cover' />
-                  <span>{t(`language.${option.code}`)}</span>
+                  <span>{t(`language.${option.code}`, { defaultValue: option.fallbackLabel })}</span>
                 </button>
               ))}
             </div>

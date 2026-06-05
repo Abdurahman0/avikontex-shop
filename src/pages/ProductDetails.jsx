@@ -8,14 +8,15 @@ import { getLocalizedProduct, products } from '../data/products'
 import { useShopStore } from '../store/shopStore'
 import { animateToCart } from '../utils/animateToCart'
 import { formatPrice } from '../utils/formatPrice'
+import { getOptimizedImageUrl } from '../utils/getOptimizedImageUrl'
 
 function ProductDetails() {
   const { t, i18n } = useTranslation()
   const { slug } = useParams()
   const imageRef = useRef(null)
   const product = useMemo(() => products.find(item => item.slug === slug), [slug])
-  const wishlist = useShopStore(state => state.wishlist)
-  const cart = useShopStore(state => state.cart)
+  const isWishlisted = useShopStore(state => (product ? state.wishlist.includes(product.id) : false))
+  const cartQuantity = useShopStore(state => (product ? state.cart[product.id] || 0 : 0))
   const toggleWishlist = useShopStore(state => state.toggleWishlist)
   const addToCart = useShopStore(state => state.addToCart)
   const updateCartQuantity = useShopStore(state => state.updateCartQuantity)
@@ -25,6 +26,18 @@ function ProductDetails() {
     if (product) {
       setSelectedImage(product.images[0])
     }
+  }, [product])
+
+  const optimizedGalleryImages = useMemo(() => {
+    if (!product) {
+      return []
+    }
+
+    return product.images.map(image => ({
+      original: image,
+      thumbnail: getOptimizedImageUrl(image, { width: 220, height: 220 }),
+      main: getOptimizedImageUrl(image, { width: 1200, height: 1400 }),
+    }))
   }, [product])
 
   const relatedProducts = useMemo(() => {
@@ -59,9 +72,9 @@ function ProductDetails() {
   }
 
   const localizedProduct = getLocalizedProduct(product, t)
-  const isWishlisted = wishlist.includes(product.id)
-  const cartQuantity = cart[product.id] || 0
   const activeImage = selectedImage || product.images[0]
+  const activeImageSet = optimizedGalleryImages.find(image => image.original === activeImage)
+  const activeMainImage = activeImageSet?.main || getOptimizedImageUrl(activeImage, { width: 1200, height: 1400 })
 
   const onIncrement = sourceElement => {
     const added = addToCart(product.id, 1)
@@ -80,27 +93,36 @@ function ProductDetails() {
         <div className='space-y-2 rounded-2xl border border-slate-200 bg-white p-2 sm:p-3'>
           <div className='flex flex-col gap-2 sm:flex-row'>
             <div className='order-2 grid grid-cols-4 gap-2 sm:order-1 sm:w-24 sm:grid-cols-1 sm:auto-rows-max sm:content-start sm:self-start'>
-              {product.images.map(image => (
+              {optimizedGalleryImages.map(image => (
                 <button
-                  key={image}
+                  key={image.original}
                   type='button'
-                  onClick={() => setSelectedImage(image)}
+                  onClick={() => setSelectedImage(image.original)}
                   className={`aspect-square overflow-hidden rounded-lg border transition ${
-                    activeImage === image
+                    activeImage === image.original
                       ? 'border-emerald-500 ring-2 ring-emerald-100'
                       : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
-                  <img src={image} alt={localizedProduct.name} className='h-full w-full object-cover' />
+                  <img
+                    src={image.thumbnail}
+                    alt={localizedProduct.name}
+                    className='h-full w-full object-cover'
+                    loading='lazy'
+                    decoding='async'
+                  />
                 </button>
               ))}
             </div>
             <div className='order-1 flex-1 sm:order-2'>
               <img
                 ref={imageRef}
-                src={activeImage}
+                src={activeMainImage}
                 alt={localizedProduct.name}
                 className='h-80 w-full rounded-xl object-cover sm:h-96 lg:h-[540px]'
+                loading='eager'
+                decoding='async'
+                fetchPriority='high'
               />
             </div>
           </div>
@@ -204,7 +226,7 @@ function ProductDetails() {
       </div>
 
       {relatedProducts.length ? (
-        <section className='space-y-4'>
+        <section className='space-y-4 [contain-intrinsic-size:900px] [content-visibility:auto]'>
           <div className='mb-4 flex flex-wrap items-end justify-between gap-3'>
             <div>
               <h2 className='text-xl font-bold text-slate-900 sm:text-2xl'>

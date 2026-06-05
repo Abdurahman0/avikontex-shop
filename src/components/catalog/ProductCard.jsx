@@ -6,15 +6,7 @@ import { useShopStore } from '../../store/shopStore'
 import { getLocalizedProduct } from '../../data/products'
 import { animateToCart } from '../../utils/animateToCart'
 import { formatPrice } from '../../utils/formatPrice'
-
-const getOptimizedCatalogImage = imageUrl => {
-  if (!imageUrl.includes('images.pexels.com')) {
-    return imageUrl
-  }
-
-  const [baseUrl] = imageUrl.split('?')
-  return `${baseUrl}?auto=compress&cs=tinysrgb&w=760&h=760&fit=crop`
-}
+import { getOptimizedImageUrl } from '../../utils/getOptimizedImageUrl'
 
 function ProductCard({ product }) {
   const { t, i18n } = useTranslation()
@@ -25,7 +17,7 @@ function ProductCard({ product }) {
   const updateCartQuantity = useShopStore(state => state.updateCartQuantity)
   const toggleWishlist = useShopStore(state => state.toggleWishlist)
   const localizedProduct = getLocalizedProduct(product, t)
-  const imageSrc = getOptimizedCatalogImage(product.images[0])
+  const imageSrc = getOptimizedImageUrl(product.images[0], { width: 760, height: 760 })
 
   const onIncrement = sourceElement => {
     const added = addToCart(product.id, 1)
