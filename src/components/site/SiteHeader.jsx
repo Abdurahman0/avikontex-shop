@@ -24,7 +24,7 @@ function IconBadge({ count }) {
   }
 
   return (
-    <span className='absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-600 px-1 text-xs font-semibold text-white'>
+    <span className='absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-600 px-1 text-xs font-semibold text-white'>
       {count > 99 ? '99+' : count}
     </span>
   )
@@ -134,11 +134,11 @@ function SiteHeader() {
     >
       <div className='mx-auto flex w-full max-w-[1600px] flex-wrap items-center gap-4 overflow-visible px-4 py-3 sm:px-6 lg:px-8'>
         <NavLink to='/' className='flex items-center gap-3'>
-          <span className='inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-700 text-sm font-bold text-white'>
+          <span className='inline-flex h-9 w-9 items-center justify-center rounded-lg bg-blue-700 text-sm font-bold text-white'>
             AV
           </span>
           <div>
-            <p className='text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700'>
+            <p className='text-xs font-semibold uppercase tracking-[0.2em] text-blue-700'>
               {t('brand.name')}
             </p>
             <p className='text-sm text-slate-500'>{t('brand.tagline')}</p>
@@ -146,7 +146,7 @@ function SiteHeader() {
         </NavLink>
 
         <form onSubmit={onSearchSubmit} className='order-3 w-full sm:order-none sm:flex-1'>
-          <div className='flex items-center rounded-xl border border-slate-300 bg-slate-50 px-3 focus-within:border-emerald-500 focus-within:bg-white'>
+          <div className='flex items-center rounded-xl border border-slate-300 bg-slate-50 px-3 focus-within:border-blue-500 focus-within:bg-white'>
             <HiOutlineMagnifyingGlass className='text-xl text-slate-500' />
             <input
               name='search'
@@ -162,7 +162,7 @@ function SiteHeader() {
           <button
             type='button'
             onClick={() => setIsLanguageMenuOpen(previous => !previous)}
-            className='inline-flex items-center gap-2 rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+            className='inline-flex items-center gap-2 rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
             aria-expanded={isLanguageMenuOpen}
             aria-label={t('nav.language')}
           >
@@ -180,7 +180,7 @@ function SiteHeader() {
                   onClick={() => setLanguage(option.code)}
                   className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition hover:bg-slate-50 ${
                     currentLanguage.code === option.code
-                      ? 'bg-emerald-50 text-emerald-700'
+                      ? 'bg-blue-50 text-blue-700'
                       : 'text-slate-700'
                   }`}
                 >
@@ -198,7 +198,7 @@ function SiteHeader() {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                isActive ? 'text-emerald-700' : 'text-slate-600 transition hover:text-slate-900'
+                isActive ? 'text-blue-700' : 'text-slate-600 transition hover:text-slate-900'
               }
             >
               {t(link.labelKey)}
@@ -209,7 +209,7 @@ function SiteHeader() {
         <div className='ml-auto flex items-center gap-2'>
           <NavLink
             to='/wishes'
-            className='relative rounded-full border border-slate-300 p-2 text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+            className='relative rounded-full border border-slate-300 p-2 text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
             aria-label={t('nav.wishlist')}
           >
             <HiOutlineHeart className='text-xl' />
@@ -218,7 +218,7 @@ function SiteHeader() {
           <NavLink
             to='/cart'
             data-cart-icon='true'
-            className='relative rounded-full border border-slate-300 p-2 text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+            className='relative rounded-full border border-slate-300 p-2 text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
             aria-label={t('nav.cart')}
           >
             <HiOutlineShoppingBag className='text-xl' />
@@ -234,7 +234,7 @@ function SiteHeader() {
             to={link.to}
             className={({ isActive }) =>
               isActive
-                ? 'shrink-0 whitespace-nowrap text-emerald-700'
+                ? 'shrink-0 whitespace-nowrap text-blue-700'
                 : 'shrink-0 whitespace-nowrap text-slate-600'
             }
           >

@@ -42,7 +42,7 @@ function ProductFilters({
             step='100000'
             value={priceRange}
             onChange={event => onPriceRangeChange(Number(event.target.value))}
-            className='w-full accent-emerald-600'
+            className='w-full accent-blue-600'
           />
           <div className='mt-1 flex items-center justify-between text-xs text-slate-500'>
             <span>

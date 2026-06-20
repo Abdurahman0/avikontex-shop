@@ -193,7 +193,7 @@ function Products() {
         onClick={() => onSelect('all')}
         className={`flex w-full items-center justify-between rounded-xl border px-3 py-2 text-left transition ${
           currentCategory === 'all'
-            ? 'border-emerald-600 bg-emerald-600 text-white'
+            ? 'border-blue-600 bg-blue-600 text-white'
             : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
         }`}
       >
@@ -217,7 +217,7 @@ function Products() {
                 onClick={() => onSelect(parent.key)}
                 className={`flex flex-1 items-center justify-between px-3 py-2 text-left transition ${
                   isParentSelected
-                    ? 'bg-emerald-600 text-white'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -248,7 +248,7 @@ function Products() {
                       type='button'
                       onClick={() => onSelect(child.key)}
                       className={`flex w-full items-center justify-between rounded-lg px-2 py-2 text-left text-sm transition ${
-                        isChildSelected ? 'bg-emerald-600 text-white' : 'text-slate-700 hover:bg-white'
+                        isChildSelected ? 'bg-blue-600 text-white' : 'text-slate-700 hover:bg-white'
                       }`}
                     >
                       <span>{child.label}</span>
@@ -266,7 +266,7 @@ function Products() {
 
   return (
     <div className='space-y-6'>
-      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
+      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
         <h1 className='text-3xl font-bold text-slate-900 sm:text-4xl'>{t('catalog.title')}</h1>
         <p className='mt-2 max-w-3xl text-sm text-slate-600 sm:text-base'>{t('catalog.description')}</p>
 
@@ -293,7 +293,7 @@ function Products() {
         <button
           type='button'
           onClick={openMobileFilters}
-          className='inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-slate-300 px-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+          className='inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-slate-300 px-3 text-sm font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
         >
           <HiOutlineFunnel className='text-lg' />
           <span>{t('catalog.mobileFilterButton')}</span>
@@ -314,7 +314,7 @@ function Products() {
               onChange={event => setSearchInput(event.target.value)}
               placeholder={t('catalog.mobileSearchPlaceholder')}
               aria-label={t('catalog.mobileSearchLabel')}
-              className='w-full rounded-xl border border-slate-300 bg-slate-50 py-2.5 pl-10 pr-3 text-sm text-slate-800 outline-none transition focus:border-emerald-500 focus:bg-white'
+              className='w-full rounded-xl border border-slate-300 bg-slate-50 py-2.5 pl-10 pr-3 text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white'
             />
           </label>
 
@@ -332,7 +332,7 @@ function Products() {
               step='100000'
               value={maxPrice}
               onChange={event => setMaxPrice(Number(event.target.value))}
-              className='w-full accent-emerald-600'
+              className='w-full accent-blue-600'
             />
             <div className='mt-1 flex items-center justify-between text-xs text-slate-500'>
               <span>
@@ -362,7 +362,7 @@ function Products() {
                   <button
                     type='button'
                     onClick={() => setVisibleCount(current => current + PAGE_SIZE)}
-                    className='rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700'
+                    className='rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-blue-500 hover:text-blue-700'
                   >
                     {t('catalog.loadMoreProducts')} ({filteredProducts.length - visibleProducts.length})
                   </button>
@@ -408,7 +408,7 @@ function Products() {
                   onChange={event => setDraftSearchInput(event.target.value)}
                   placeholder={t('catalog.mobileSearchPlaceholder')}
                   aria-label={t('catalog.mobileSearchLabel')}
-                  className='w-full rounded-xl border border-slate-300 bg-slate-50 py-2.5 pl-10 pr-3 text-sm text-slate-800 outline-none transition focus:border-emerald-500 focus:bg-white'
+                  className='w-full rounded-xl border border-slate-300 bg-slate-50 py-2.5 pl-10 pr-3 text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white'
                 />
               </label>
 
@@ -431,7 +431,7 @@ function Products() {
                   step='100000'
                   value={draftMaxPrice}
                   onChange={event => setDraftMaxPrice(Number(event.target.value))}
-                  className='w-full accent-emerald-600'
+                  className='w-full accent-blue-600'
                 />
                 <div className='mt-1 flex items-center justify-between text-xs text-slate-500'>
                   <span>
@@ -450,7 +450,7 @@ function Products() {
               <button
                 type='button'
                 onClick={applyMobileFilters}
-                className='w-full rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white'
+                className='w-full rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white'
               >
                 {t('catalog.applyFilters')} ({draftResultCount})
               </button>

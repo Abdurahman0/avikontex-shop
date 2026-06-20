@@ -88,7 +88,7 @@ function TrackOrder() {
                   <span
                     className={`mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full border text-xs ${
                       isDone
-                        ? 'border-emerald-600 bg-emerald-600 text-white'
+                        ? 'border-blue-600 bg-blue-600 text-white'
                         : 'border-slate-300 bg-white text-slate-400'
                     }`}
                   >

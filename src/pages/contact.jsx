@@ -15,11 +15,11 @@ function Contact() {
 
   return (
     <div className='mx-auto w-full max-w-6xl space-y-6'>
-      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
+      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
         <h1 className='text-3xl font-bold text-slate-900 sm:text-4xl'>{t('contact.title')}</h1>
         <p className='mt-2 max-w-3xl text-sm text-slate-600 sm:text-base'>{t('contact.description')}</p>
 
-        <div className='mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1.5 text-sm text-emerald-800'>
+        <div className='mt-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1.5 text-sm text-blue-800'>
           <HiOutlineClock className='text-base' />
           <span>{t('contact.responseTime')}</span>
         </div>
@@ -29,13 +29,13 @@ function Contact() {
         <div className='space-y-4'>
           <div className='grid gap-3 sm:grid-cols-2'>
             <article className='rounded-2xl border border-slate-200 bg-white p-4 shadow-sm'>
-              <div className='inline-flex rounded-full bg-emerald-100 p-2 text-emerald-700'>
+              <div className='inline-flex rounded-full bg-blue-100 p-2 text-blue-700'>
                 <HiOutlinePhone className='text-lg' />
               </div>
               <p className='mt-3 text-xs uppercase tracking-wide text-slate-500'>{t('contact.phone')}</p>
               <a
                 href='tel:+998900000001'
-                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-emerald-700'
+                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-blue-700'
               >
                 +998 90 000 00 01
                 <HiOutlineArrowUpRight className='text-sm' />
@@ -49,7 +49,7 @@ function Contact() {
               <p className='mt-3 text-xs uppercase tracking-wide text-slate-500'>{t('contact.email')}</p>
               <a
                 href='mailto:info@avikontex.uz'
-                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-emerald-700'
+                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-blue-700'
               >
                 info@avikontex.uz
                 <HiOutlineArrowUpRight className='text-sm' />
@@ -65,7 +65,7 @@ function Contact() {
                 href='https://t.me/avikontex'
                 target='_blank'
                 rel='noreferrer'
-                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-emerald-700'
+                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-blue-700'
               >
                 @avikontex
                 <HiOutlineArrowUpRight className='text-sm' />
@@ -81,7 +81,7 @@ function Contact() {
                 href='https://maps.google.com/?q=Tashkent,Uzbekistan'
                 target='_blank'
                 rel='noreferrer'
-                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-emerald-700'
+                className='mt-1 inline-flex items-center gap-1 font-semibold text-slate-900 transition hover:text-blue-700'
               >
                 {t('contact.addressValue')}
                 <HiOutlineArrowUpRight className='text-sm' />
@@ -114,7 +114,7 @@ function Contact() {
               </a>
               <a
                 href='mailto:info@avikontex.uz'
-                className='inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+                className='inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
               >
                 {t('contact.emailAction')}
               </a>
@@ -126,7 +126,7 @@ function Contact() {
             <p className='mt-1 text-sm text-slate-600'>{t('contact.faqDescription')}</p>
             <Link
               to='/faq'
-              className='mt-4 inline-flex items-center gap-1 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+              className='mt-4 inline-flex items-center gap-1 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
             >
               {t('contact.faqAction')}
               <HiOutlineArrowUpRight className='text-sm' />

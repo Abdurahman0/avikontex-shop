@@ -41,7 +41,7 @@ function ProductCard({ product }) {
             className='h-64 w-full object-cover sm:h-72'
             loading='lazy'
             decoding='async'
-            fetchPriority='low'
+            fetchpriority='low'
           />
         </Link>
         <button
@@ -59,7 +59,7 @@ function ProductCard({ product }) {
       </div>
 
       <div className='flex h-full flex-col p-4'>
-        <p className='text-xs font-semibold uppercase tracking-wide text-emerald-700'>
+        <p className='text-xs font-semibold uppercase tracking-wide text-blue-700'>
           {localizedProduct.categoryLabel}
         </p>
         <Link
@@ -94,21 +94,21 @@ function ProductCard({ product }) {
             {t('common.outOfStock')}
           </button>
         ) : cartQuantity > 0 ? (
-          <div className='mt-4 inline-flex w-full items-center justify-between rounded-xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white px-2 py-1 shadow-sm'>
+          <div className='mt-4 inline-flex w-full items-center justify-between rounded-xl border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-2 py-1 shadow-sm'>
             <button
               type='button'
               onClick={onDecrement}
-              className='h-7 w-7 rounded-full text-base font-semibold text-emerald-800 transition hover:bg-emerald-100 active:scale-95 sm:h-8 sm:w-8'
+              className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
             >
               -
             </button>
-            <span className='min-w-8 text-center text-sm font-semibold text-emerald-900'>
+            <span className='min-w-8 text-center text-sm font-semibold text-blue-900'>
               {cartQuantity}
             </span>
             <button
               type='button'
               onClick={event => onIncrement(event.currentTarget)}
-              className='h-7 w-7 rounded-full text-base font-semibold text-emerald-800 transition hover:bg-emerald-100 active:scale-95 sm:h-8 sm:w-8'
+              className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
             >
               +
             </button>
@@ -117,7 +117,7 @@ function ProductCard({ product }) {
           <button
             type='button'
             onClick={event => onIncrement(event.currentTarget)}
-            className='mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 transition hover:border-emerald-600 hover:text-emerald-700'
+            className='mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 transition hover:border-blue-600 hover:text-blue-700'
           >
             <HiOutlineShoppingCart className='text-lg' />
             {t('productCard.addToCart')}
@@ -129,4 +129,3 @@ function ProductCard({ product }) {
 }
 
 export default memo(ProductCard)
-

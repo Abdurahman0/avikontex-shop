@@ -19,3 +19,4 @@
 5. Supported languages for this project are only:
 - `ru`
 - `uz`
+- `en`

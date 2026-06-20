@@ -30,6 +30,35 @@
     "continueShopping": "Continue shopping",
     "outOfStock": "Out of stock"
   },
+  "entryNotice": {
+    "badge": "Public offer notice",
+    "title": "Please review these terms before using the website",
+    "description": "The information published on the AVIKONTEX website regarding products, technical specifications, pricing, availability, delivery, and related services is provided for general informational purposes only. The materials displayed on the website do not by themselves constitute an unconditional acceptance of a transaction, a guaranteed reservation of stock, or a final commercial commitment by the company. Any order, request, or inquiry submitted through the website is subject to review and confirmation by an authorized representative of AVIKONTEX.",
+    "sections": [
+      {
+        "title": "Product information",
+        "body": "AVIKONTEX makes reasonable efforts to keep product descriptions, images, technical parameters, product configuration, and other catalog data current and accurate. However, certain items may be updated by manufacturers, replaced with equivalent models, or supplied with revised specifications without prior publication on the website. Product visuals are illustrative unless otherwise stated."
+      },
+      {
+        "title": "Pricing and availability",
+        "body": "Prices shown on the website may be changed without prior notice due to supplier terms, logistics costs, exchange-rate fluctuations, or other commercial factors. Product availability is confirmed only after the company reviews the request or order. The placement of an item in the cart or the submission of an order form does not guarantee immediate availability or fixation of price."
+      },
+      {
+        "title": "Order confirmation",
+        "body": "After a request or order is submitted, a company representative may contact the customer to confirm the selected items, availability, final pricing, payment terms, delivery conditions, documentation requirements, and other essential details. A transaction is considered finalized only after these terms have been expressly confirmed by both parties."
+      },
+      {
+        "title": "Delivery and timelines",
+        "body": "Estimated delivery periods shown on the website are indicative and may vary depending on warehouse stock, supplier lead times, customs procedures, transportation schedules, and the customer’s location. AVIKONTEX reserves the right to clarify or revise delivery timing during the order confirmation process."
+      },
+      {
+        "title": "Acceptance of terms",
+        "body": "By continuing to use the website, browsing the catalog, submitting a request, or placing an order, the user confirms that they have reviewed this notice, understand the nature of the information published on the website, and accept that final commercial terms are established only after direct confirmation from AVIKONTEX."
+      }
+    ],
+    "checkbox": "I have read these terms and understand that the order is finalized only after confirmation",
+    "confirm": "Continue"
+  },
   "home": {
     "badge": "New project",
     "title": "AVIKONTEX clinical technologies e-commerce platform",

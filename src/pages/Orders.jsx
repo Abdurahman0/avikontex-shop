@@ -24,8 +24,8 @@ const STATUS_STYLES = {
     bar: 'bg-indigo-500',
   },
   delivered: {
-    chip: 'bg-emerald-100 text-emerald-800',
-    bar: 'bg-emerald-500',
+    chip: 'bg-blue-100 text-blue-800',
+    bar: 'bg-blue-500',
   },
 }
 
@@ -123,7 +123,7 @@ function Orders() {
 
   return (
     <div className='mx-auto w-full max-w-6xl space-y-6'>
-      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
+      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
         <h1 className='text-3xl font-bold text-slate-900 sm:text-4xl'>{t('orders.title')}</h1>
         <p className='mt-2 max-w-3xl text-sm text-slate-600 sm:text-base'>{t('orders.description')}</p>
 
@@ -144,7 +144,7 @@ function Orders() {
           </article>
           <article className='rounded-2xl border border-slate-200 bg-white/85 p-4'>
             <p className='text-xs uppercase tracking-wide text-slate-500'>{t('status.delivered')}</p>
-            <p className='mt-2 inline-flex items-center gap-2 text-2xl font-bold text-emerald-700'>
+            <p className='mt-2 inline-flex items-center gap-2 text-2xl font-bold text-blue-700'>
               <HiCheckCircle className='text-xl' />
               {summary.deliveredCount}
             </p>
@@ -163,7 +163,7 @@ function Orders() {
                 onClick={() => setActiveStatus(filter.key)}
                 className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition ${
                   isActive
-                    ? 'border-emerald-600 bg-emerald-600 text-white'
+                    ? 'border-blue-600 bg-blue-600 text-white'
                     : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400'
                 }`}
               >
@@ -246,7 +246,7 @@ function Orders() {
 
                 <Link
                   to={`/track-order/${order.id}`}
-                  className='inline-flex items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800'
+                  className='inline-flex items-center justify-center rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-800'
                 >
                   {t('orders.trackButton')}
                 </Link>

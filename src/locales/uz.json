@@ -5,7 +5,8 @@
   },
   "language": {
     "uz": "O'zbekcha",
-    "ru": "Русский"
+    "ru": "Русский",
+    "en": "English"
   },
   "nav": {
     "home": "Bosh sahifa",
@@ -28,6 +29,35 @@
     "loading": "Yuklanmoqda...",
     "continueShopping": "Xaridni davom ettirish",
     "outOfStock": "Tugagan"
+  },
+  "entryNotice": {
+    "badge": "Ommaviy oferta",
+    "title": "Saytdan foydalanishdan oldin ushbu shartlar bilan tanishib chiqing",
+    "description": "AVIKONTEX saytida joylashtirilgan mahsulotlar, texnik tavsiflar, narxlar, mavjudlik, yetkazib berish va tegishli xizmatlar haqidagi ma'lumotlar umumiy ma'lumot berish maqsadida taqdim etiladi. Saytda ko'rsatilgan materiallar o'z-o'zidan bitimning so'zsiz tasdig'i, mahsulotning band qilinishi yoki kompaniyaning yakuniy tijorat majburiyati hisoblanmaydi. Sayt orqali yuborilgan har qanday so'rov, ariza yoki buyurtma AVIKONTEX vakili tomonidan qo'shimcha ko'rib chiqiladi va tasdiqlanadi.",
+    "sections": [
+      {
+        "title": "Mahsulot ma'lumotlari",
+        "body": "AVIKONTEX katalogdagi mahsulot tavsiflari, rasmlar, texnik ko'rsatkichlar, komplektatsiya va boshqa ma'lumotlarni imkon qadar dolzarb saqlashga harakat qiladi. Shunga qaramay, ayrim mahsulotlar ishlab chiqaruvchi tomonidan yangilanishi, ekvivalent model bilan almashtirilishi yoki oldindan e'lon qilinmasdan o'zgartirilgan tavsiflarda yetkazib berilishi mumkin. Agar alohida ko'rsatilmagan bo'lsa, sayt rasmlari illustrativ xarakterga ega bo'lishi mumkin."
+      },
+      {
+        "title": "Narx va mavjudlik",
+        "body": "Saytda ko'rsatilgan narxlar yetkazib beruvchilar shartlari, logistika xarajatlari, valyuta kursi o'zgarishi yoki boshqa tijorat omillari sababli oldindan ogohlantirilmasdan o'zgartirilishi mumkin. Mahsulotning amaldagi mavjudligi faqat so'rov yoki buyurtma ko'rib chiqilgandan keyin tasdiqlanadi. Mahsulotni savatchaga qo'shish yoki buyurtma formasini yuborish narxning qat'iy belgilanishi yoki zaxiraning kafolatlanishini anglatmaydi."
+      },
+      {
+        "title": "Buyurtmani tasdiqlash",
+        "body": "So'rov yoki buyurtma yuborilgandan so'ng kompaniya vakili tanlangan mahsulotlar, mavjudlik, yakuniy narx, to'lov tartibi, yetkazib berish shartlari, zarur hujjatlar va boshqa muhim tafsilotlarni aniqlashtirish uchun mijoz bilan bog'lanishi mumkin. Bitim faqat tomonlar ushbu shartlarni alohida tasdiqlaganidan keyin yakuniy hisoblanadi."
+      },
+      {
+        "title": "Yetkazib berish muddati",
+        "body": "Saytda ko'rsatilgan taxminiy yetkazib berish muddatlari ma'lumot uchun beriladi va ombordagi qoldiq, yetkazib beruvchining ishlab chiqarish yoki jo'natish muddati, bojxona jarayonlari, transport jadvali hamda mijoz joylashuviga qarab farq qilishi mumkin. AVIKONTEX buyurtmani tasdiqlash jarayonida ushbu muddatlarni aniqlashtirish yoki o'zgartirish huquqini saqlab qoladi."
+      },
+      {
+        "title": "Shartlarni qabul qilish",
+        "body": "Saytdan foydalanishni davom ettirish, katalogni ko'rish, so'rov yuborish yoki buyurtma rasmiylashtirish orqali foydalanuvchi ushbu xabarnoma bilan tanishganini, saytda joylashtirilgan ma'lumotlarning huquqiy mohiyatini tushunganini va yakuniy tijorat shartlari faqat AVIKONTEX bilan to'g'ridan-to'g'ri tasdiqlangandan keyin kuchga kirishini qabul qilganini tasdiqlaydi."
+      }
+    ],
+    "checkbox": "Shartlar bilan tanishdim va buyurtma faqat tasdiqlangandan keyin yakuniy kuchga kirishini tushunaman",
+    "confirm": "Davom etish"
   },
   "home": {
     "badge": "Yangi loyiha",

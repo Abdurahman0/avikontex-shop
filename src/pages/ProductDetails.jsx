@@ -100,7 +100,7 @@ function ProductDetails() {
                   onClick={() => setSelectedImage(image.original)}
                   className={`aspect-square overflow-hidden rounded-lg border transition ${
                     activeImage === image.original
-                      ? 'border-emerald-500 ring-2 ring-emerald-100'
+                      ? 'border-blue-500 ring-2 ring-blue-100'
                       : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
@@ -122,14 +122,14 @@ function ProductDetails() {
                 className='h-80 w-full rounded-xl object-cover sm:h-96 lg:h-[540px]'
                 loading='eager'
                 decoding='async'
-                fetchPriority='high'
+                fetchpriority='high'
               />
             </div>
           </div>
         </div>
 
         <div className='rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 xl:sticky xl:top-24 xl:h-fit'>
-          <p className='text-xs font-semibold uppercase tracking-wide text-emerald-700'>
+          <p className='text-xs font-semibold uppercase tracking-wide text-blue-700'>
             {localizedProduct.categoryLabel}
           </p>
           <h1 className='mt-2 text-2xl font-bold text-slate-900 sm:text-3xl'>{localizedProduct.name}</h1>
@@ -179,21 +179,21 @@ function ProductDetails() {
                 {t('common.outOfStock')}
               </button>
             ) : cartQuantity > 0 ? (
-              <div className='inline-flex w-full items-center justify-between rounded-xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white px-2 py-1 shadow-sm sm:w-auto sm:min-w-44'>
+              <div className='inline-flex w-full items-center justify-between rounded-xl border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-2 py-1 shadow-sm sm:w-auto sm:min-w-44'>
                 <button
                   type='button'
                   onClick={onDecrement}
-                  className='h-7 w-7 rounded-full text-base font-semibold text-emerald-800 transition hover:bg-emerald-100 active:scale-95 sm:h-8 sm:w-8'
+                  className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
                 >
                   -
                 </button>
-                <span className='min-w-8 text-center text-sm font-semibold text-emerald-900'>
+                <span className='min-w-8 text-center text-sm font-semibold text-blue-900'>
                   {cartQuantity}
                 </span>
                 <button
                   type='button'
                   onClick={event => onIncrement(event.currentTarget)}
-                  className='h-7 w-7 rounded-full text-base font-semibold text-emerald-800 transition hover:bg-emerald-100 active:scale-95 sm:h-8 sm:w-8'
+                  className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
                 >
                   +
                 </button>
@@ -236,7 +236,7 @@ function ProductDetails() {
             </div>
             <Link
               to='/products'
-              className='rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-emerald-600 hover:text-emerald-700'
+              className='rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
             >
               {t('common.viewAll')}
             </Link>

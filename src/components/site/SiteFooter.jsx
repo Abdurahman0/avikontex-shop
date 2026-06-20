@@ -23,7 +23,7 @@ function SiteFooter() {
       <div className='mx-auto w-full max-w-[1600px] px-4 py-10 sm:px-6 lg:px-8'>
         <div className='grid gap-8 md:grid-cols-2 xl:grid-cols-[1.2fr_0.9fr_0.9fr_1fr]'>
           <div className='space-y-3'>
-            <p className='text-xs font-semibold uppercase tracking-[0.22em] text-emerald-700'>
+            <p className='text-xs font-semibold uppercase tracking-[0.22em] text-blue-700'>
               {t('brand.name')}
             </p>
             <p className='max-w-md text-2xl font-bold leading-tight text-slate-900'>{t('footer.title')}</p>
@@ -39,7 +39,7 @@ function SiteFooter() {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className='inline-flex items-center gap-1.5 transition hover:text-emerald-700'
+                    className='inline-flex items-center gap-1.5 transition hover:text-blue-700'
                   >
                     <span>{t(link.labelKey)}</span>
                     <HiOutlineArrowUpRight className='text-xs' />
@@ -58,7 +58,7 @@ function SiteFooter() {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className='inline-flex items-center gap-1.5 transition hover:text-emerald-700'
+                    className='inline-flex items-center gap-1.5 transition hover:text-blue-700'
                   >
                     <span>{t(link.labelKey)}</span>
                     <HiOutlineArrowUpRight className='text-xs' />
@@ -74,19 +74,19 @@ function SiteFooter() {
             </p>
             <ul className='mt-3 space-y-3 text-sm text-slate-600'>
               <li className='flex items-start gap-2'>
-                <HiOutlinePhone className='mt-0.5 text-base text-emerald-700' />
-                <a href='tel:+998900000001' className='transition hover:text-emerald-700'>
+                <HiOutlinePhone className='mt-0.5 text-base text-blue-700' />
+                <a href='tel:+998900000001' className='transition hover:text-blue-700'>
                   +998 90 000 00 01
                 </a>
               </li>
               <li className='flex items-start gap-2'>
-                <HiOutlineEnvelope className='mt-0.5 text-base text-emerald-700' />
-                <a href='mailto:info@avikontex.uz' className='transition hover:text-emerald-700'>
+                <HiOutlineEnvelope className='mt-0.5 text-base text-blue-700' />
+                <a href='mailto:info@avikontex.uz' className='transition hover:text-blue-700'>
                   info@avikontex.uz
                 </a>
               </li>
               <li className='flex items-start gap-2'>
-                <HiOutlineMapPin className='mt-0.5 text-base text-emerald-700' />
+                <HiOutlineMapPin className='mt-0.5 text-base text-blue-700' />
                 <span>{t('contact.addressValue')}</span>
               </li>
             </ul>

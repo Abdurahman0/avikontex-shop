@@ -66,7 +66,7 @@ function Faq() {
 
   return (
     <div className='mx-auto w-full max-w-5xl space-y-6'>
-      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
+      <section className='rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-slate-100 p-5 shadow-sm sm:p-6'>
         <h1 className='text-3xl font-bold text-slate-900 sm:text-4xl'>{t('faq.title')}</h1>
         <p className='mt-2 max-w-3xl text-sm text-slate-600 sm:text-base'>{t('faq.description')}</p>
 
@@ -80,7 +80,7 @@ function Faq() {
                   key={category.key}
                   className='rounded-2xl border border-slate-200 bg-white/85 p-3 text-sm text-slate-700'
                 >
-                  <Icon className='mb-2 text-xl text-emerald-700' />
+                  <Icon className='mb-2 text-xl text-blue-700' />
                   <p className='font-semibold text-slate-900'>{category.label}</p>
                 </article>
               )
@@ -99,7 +99,7 @@ function Faq() {
                 onClick={() => setActiveCategory(category.key)}
                 className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${
                   isActive
-                    ? 'border-emerald-600 bg-emerald-600 text-white'
+                    ? 'border-blue-600 bg-blue-600 text-white'
                     : 'border-slate-300 text-slate-700 hover:border-slate-400'
                 }`}
               >
@@ -109,7 +109,7 @@ function Faq() {
           })}
         </div>
 
-        <div className='mt-3 flex items-center rounded-xl border border-slate-300 bg-slate-50 px-3 focus-within:border-emerald-500 focus-within:bg-white'>
+        <div className='mt-3 flex items-center rounded-xl border border-slate-300 bg-slate-50 px-3 focus-within:border-blue-500 focus-within:bg-white'>
           <HiOutlineMagnifyingGlass className='text-lg text-slate-500' />
           <input
             type='search'

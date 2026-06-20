@@ -74,7 +74,7 @@ function Checkout() {
             name='fullName'
             value={form.fullName}
             onChange={onInput}
-            className='w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-600'
+            className='w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-blue-600'
             required
           />
         </div>
@@ -88,7 +88,7 @@ function Checkout() {
             name='phone'
             value={form.phone}
             onChange={onInput}
-            className='w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-600'
+            className='w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-blue-600'
             required
           />
         </div>
@@ -103,7 +103,7 @@ function Checkout() {
             rows='4'
             value={form.address}
             onChange={onInput}
-            className='w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-600'
+            className='w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-blue-600'
             required
           />
         </div>
@@ -127,7 +127,7 @@ function Checkout() {
 
         <button
           type='submit'
-          className='inline-flex w-full items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800'
+          className='inline-flex w-full items-center justify-center rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-800'
         >
           {t('checkout.confirm')}
         </button>

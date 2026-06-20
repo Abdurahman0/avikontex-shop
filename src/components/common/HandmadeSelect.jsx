@@ -46,7 +46,7 @@ function HandmadeSelect({ value, options, onChange, ariaLabel }) {
         aria-haspopup='listbox'
         aria-expanded={isOpen}
         onClick={() => setIsOpen(previous => !previous)}
-        className='flex w-full items-center justify-between rounded-xl border border-slate-300 bg-white px-3 py-2 text-left text-sm text-slate-800 shadow-sm outline-none transition hover:border-emerald-500 focus:border-emerald-600'
+        className='flex w-full items-center justify-between rounded-xl border border-slate-300 bg-white px-3 py-2 text-left text-sm text-slate-800 shadow-sm outline-none transition hover:border-blue-500 focus:border-blue-600'
       >
         <span className='truncate'>{selectedOption.label}</span>
         <HiChevronDown
@@ -62,11 +62,11 @@ function HandmadeSelect({ value, options, onChange, ariaLabel }) {
                 <button
                   type='button'
                   onClick={() => pickOption(option.value)}
-                  className='flex w-full items-center justify-between px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-emerald-50'
+                  className='flex w-full items-center justify-between px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-blue-50'
                 >
                   <span className='truncate'>{option.label}</span>
                   {option.value === selectedOption.value ? (
-                    <HiCheck className='text-base text-emerald-600' />
+                    <HiCheck className='text-base text-blue-600' />
                   ) : null}
                 </button>
               </li>

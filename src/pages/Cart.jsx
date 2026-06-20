@@ -64,15 +64,15 @@ function Cart() {
               </p>
             </div>
 
-            <div className='flex items-center gap-2 rounded-xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white px-2 py-1 shadow-sm'>
+            <div className='flex items-center gap-2 rounded-xl border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-2 py-1 shadow-sm'>
               <button
                 type='button'
                 onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
-                className='h-7 w-7 rounded-full text-base font-semibold text-emerald-800 transition hover:bg-emerald-100 active:scale-95 sm:h-8 sm:w-8'
+                className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
               >
                 -
               </button>
-              <span className='w-8 text-center text-sm font-semibold text-emerald-900'>{item.quantity}</span>
+              <span className='w-8 text-center text-sm font-semibold text-blue-900'>{item.quantity}</span>
               <button
                 type='button'
                 onClick={event => {
@@ -81,7 +81,7 @@ function Cart() {
                     animateToCart(event.currentTarget, item.images[0])
                   }
                 }}
-                className='h-7 w-7 rounded-full text-base font-semibold text-emerald-800 transition hover:bg-emerald-100 active:scale-95 sm:h-8 sm:w-8'
+                className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
               >
                 +
               </button>
@@ -130,7 +130,7 @@ function Cart() {
 
         <Link
           to='/checkout'
-          className='mt-5 inline-flex w-full items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800'
+          className='mt-5 inline-flex w-full items-center justify-center rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-800'
         >
           {t('cart.checkout')}
         </Link>
