@@ -28,7 +28,9 @@
     "free": "Free",
     "loading": "Loading...",
     "continueShopping": "Continue shopping",
-    "outOfStock": "Out of stock"
+    "outOfStock": "Out of stock",
+    "yes": "Yes",
+    "no": "No"
   },
   "entryNotice": {
     "badge": "Public offer notice",
@@ -107,6 +109,7 @@
     "electrosurgery_units": "Electrosurgical units",
     "surgical_lighting": "Surgical lighting",
     "sterilization_systems": "Sterilization systems",
+    "sterilization_baskets": "Sterilization boxes and baskets",
     "plasma_sterilizers": "Plasma sterilizers",
     "steam_autoclaves": "Steam autoclaves",
     "rehabilitation_systems": "Rehabilitation systems",
@@ -115,7 +118,9 @@
   },
   "productCard": {
     "addToCart": "Add to cart",
-    "toggleWishlist": "Add to or remove from wishlist"
+    "toggleWishlist": "Add to or remove from wishlist",
+    "increaseQuantity": "Increase quantity",
+    "decreaseQuantity": "Decrease quantity"
   },
   "productDetails": {
     "notFoundTitle": "Product not found",
@@ -129,6 +134,22 @@
     "saved": "Saved",
     "relatedTitle": "Similar products",
     "relatedDescription": "Popular items from the same category and recommended alternatives."
+  },
+  "productData": {
+    "notProvided": "Not specified",
+    "code": "Product code",
+    "article": "Article",
+    "manufacturer": "Manufacturer",
+    "country": "Country",
+    "unit": "Unit",
+    "segment": "Segment",
+    "priceSince": "Price valid since",
+    "stock": "Stock",
+    "currency": "Currency",
+    "frontend": {
+      "featured": "Recommended",
+      "featuredLabel": "Recommended"
+    }
   },
   "wishlist": {
     "title": "Wishlist",

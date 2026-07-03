@@ -28,7 +28,9 @@
     "free": "Бесплатно",
     "loading": "Загрузка...",
     "continueShopping": "Продолжить покупки",
-    "outOfStock": "Нет в наличии"
+    "outOfStock": "Нет в наличии",
+    "yes": "Да",
+    "no": "Нет"
   },
   "entryNotice": {
     "badge": "Публичная оферта",
@@ -107,6 +109,7 @@
     "electrosurgery_units": "Электрохирургические аппараты",
     "surgical_lighting": "Операционное освещение",
     "sterilization_systems": "Системы стерилизации",
+    "sterilization_baskets": "Стерилизационные коробки и корзины",
     "plasma_sterilizers": "Плазменные стерилизаторы",
     "steam_autoclaves": "Паровые автоклавы",
     "rehabilitation_systems": "Реабилитационные системы",
@@ -115,7 +118,9 @@
   },
   "productCard": {
     "addToCart": "Добавить в корзину",
-    "toggleWishlist": "Добавить или убрать из избранного"
+    "toggleWishlist": "Добавить или убрать из избранного",
+    "increaseQuantity": "Увеличить количество",
+    "decreaseQuantity": "Уменьшить количество"
   },
   "productDetails": {
     "notFoundTitle": "Товар не найден",
@@ -129,6 +134,22 @@
     "saved": "Сохранено",
     "relatedTitle": "Похожие товары",
     "relatedDescription": "Популярные позиции из этой категории и рекомендованные варианты."
+  },
+  "productData": {
+    "notProvided": "Не указано",
+    "code": "Код товара",
+    "article": "Артикул",
+    "manufacturer": "Производитель",
+    "country": "Страна",
+    "unit": "Единица измерения",
+    "segment": "Сегмент",
+    "priceSince": "Цена действует с",
+    "stock": "Остаток",
+    "currency": "Валюта",
+    "frontend": {
+      "featured": "Рекомендуем",
+      "featuredLabel": "Рекомендация"
+    }
   },
   "wishlist": {
     "title": "Избранное",

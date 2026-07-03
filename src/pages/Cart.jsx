@@ -16,7 +16,7 @@ function Cart() {
 
   const cartItems = Object.entries(cart)
     .map(([id, quantity]) => {
-      const product = products.find(item => item.id === Number(id))
+      const product = products.find(item => item.id === id)
       if (!product) {
         return null
       }
@@ -30,8 +30,9 @@ function Cart() {
     .filter(Boolean)
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const delivery = subtotal >= 1000000 ? 0 : cartItems.length ? 35000 : 0
+  const delivery = subtotal >= 500 ? 0 : cartItems.length ? 15 : 0
   const total = subtotal + delivery
+  const currency = cartItems[0]?.currency || t('common.currency')
 
   if (!cartItems.length) {
     return (
@@ -55,16 +56,29 @@ function Cart() {
             key={item.id}
             className='flex flex-wrap items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4'
           >
-            <img src={item.images[0]} alt={item.name} className='h-24 w-24 rounded-lg object-cover' />
+            <img
+              src={item.images[0]}
+              alt={item.name}
+              className='h-24 w-24 rounded-lg object-cover'
+              onError={event => {
+                if (event.currentTarget.src !== item.frontendOnly.fallbackImage) {
+                  event.currentTarget.src = item.frontendOnly.fallbackImage
+                }
+              }}
+            />
             <div className='min-w-0 flex-1'>
               <h2 className='font-semibold text-slate-900'>{item.name}</h2>
               <p className='text-sm text-slate-500'>{item.categoryLabel}</p>
               <p className='mt-1 text-sm font-semibold text-slate-900'>
-                {formatPrice(item.price, i18n.language)} {t('common.currency')}
+                {formatPrice(item.price, i18n.language)}{' '}
+                <span className='inline-flex items-center gap-1.5 text-slate-700'>
+                  <span className='h-2 w-2 rounded-full bg-violet-600' />
+                  {currency}
+                </span>
               </p>
             </div>
 
-            <div className='flex items-center gap-2 rounded-xl border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-2 py-1 shadow-sm'>
+            <div className='flex items-center gap-2 rounded-full border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-2 py-1 shadow-sm'>
               <button
                 type='button'
                 onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
@@ -81,7 +95,7 @@ function Cart() {
                     animateToCart(event.currentTarget, item.images[0])
                   }
                 }}
-                className='h-7 w-7 rounded-full text-base font-semibold text-blue-800 transition hover:bg-blue-100 active:scale-95 sm:h-8 sm:w-8'
+                className='h-7 w-7 rounded-full bg-blue-700 text-base font-semibold text-white transition hover:bg-blue-800 active:scale-95 sm:h-8 sm:w-8'
               >
                 +
               </button>
@@ -89,7 +103,7 @@ function Cart() {
 
             <div className='ml-auto text-right'>
               <p className='font-semibold text-slate-900'>
-                {formatPrice(item.price * item.quantity, i18n.language)} {t('common.currency')}
+                {formatPrice(item.price * item.quantity, i18n.language)} {currency}
               </p>
               <button
                 type='button'
@@ -109,21 +123,21 @@ function Cart() {
           <div className='flex justify-between'>
             <span>{t('cart.subtotal')}</span>
             <span>
-              {formatPrice(subtotal, i18n.language)} {t('common.currency')}
+              {formatPrice(subtotal, i18n.language)} {currency}
             </span>
           </div>
           <div className='flex justify-between'>
             <span>{t('cart.delivery')}</span>
             <span>
               {delivery
-                ? `${formatPrice(delivery, i18n.language)} ${t('common.currency')}`
+                ? `${formatPrice(delivery, i18n.language)} ${currency}`
                 : t('common.free')}
             </span>
           </div>
           <div className='flex justify-between border-t border-slate-200 pt-2 text-base font-semibold text-slate-900'>
             <span>{t('cart.total')}</span>
             <span>
-              {formatPrice(total, i18n.language)} {t('common.currency')}
+              {formatPrice(total, i18n.language)} {currency}
             </span>
           </div>
         </div>

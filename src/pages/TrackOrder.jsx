@@ -133,7 +133,8 @@ function TrackOrder() {
                     </p>
                   </div>
                   <p className='text-sm font-semibold text-slate-900'>
-                    {formatPrice(item.unitPrice * item.quantity, i18n.language)} {t('common.currency')}
+                    {formatPrice(item.unitPrice * item.quantity, i18n.language)}{' '}
+                    {order.currency || t('common.currency')}
                   </p>
                 </article>
               )
@@ -141,7 +142,8 @@ function TrackOrder() {
           </div>
 
           <div className='mt-4 border-t border-slate-200 pt-3 text-right text-base font-semibold text-slate-900'>
-            {t('tracking.total')}: {formatPrice(order.total, i18n.language)} {t('common.currency')}
+            {t('tracking.total')}: {formatPrice(order.total, i18n.language)}{' '}
+            {order.currency || t('common.currency')}
           </div>
         </div>
       </section>

@@ -13,6 +13,7 @@ const ruMonthsShort = [
   '\u041d\u043e\u044f',
   '\u0414\u0435\u043a',
 ]
+const enMonthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const pad2 = value => String(value).padStart(2, '0')
 
@@ -27,7 +28,11 @@ export const formatOrderDate = (dateInput, language = 'uz') => {
   const monthIndex = date.getMonth()
   const normalizedLanguage = String(language || '').slice(0, 2)
   const month =
-    normalizedLanguage === 'ru' ? ruMonthsShort[monthIndex] : uzMonthsShort[monthIndex]
+    normalizedLanguage === 'ru'
+      ? ruMonthsShort[monthIndex]
+      : normalizedLanguage === 'en'
+        ? enMonthsShort[monthIndex]
+        : uzMonthsShort[monthIndex]
 
   return `${year}-${month}-${day}`
 }

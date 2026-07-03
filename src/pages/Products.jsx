@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import {
   HiChevronDown,
@@ -25,6 +25,7 @@ import {
   isLeafCategory,
   products,
 } from '../data/products'
+import { formatPrice } from '../utils/formatPrice'
 
 const CATEGORY_ICON_MAP = {
   all: HiOutlineRectangleGroup,
@@ -38,6 +39,7 @@ const CATEGORY_ICON_MAP = {
 
 const MIN_PRICE = Math.min(...products.map(product => product.price))
 const MAX_PRICE = Math.max(...products.map(product => product.price))
+const PRICE_STEP = 1
 const PAGE_SIZE = 24
 
 function Products() {
@@ -76,40 +78,61 @@ function Products() {
           normalizedName: localizedProduct.name.toLowerCase(),
           normalizedCategory: localizedProduct.categoryLabel.toLowerCase(),
           normalizedParentCategory: localizedProduct.parentCategoryLabel.toLowerCase(),
+          normalizedCode: String(product.code || '').toLowerCase(),
+          normalizedArticle: String(product.article || '').toLowerCase(),
+          normalizedManufacturer: String(product.manufacturer || '').toLowerCase(),
+          normalizedSegment: String(product.segment || '').toLowerCase(),
         }
       }),
     [t]
   )
 
-  const filterByCriteria = (categoryKey, priceLimit, keyword) =>
-    searchableProducts
-      .filter(({ product, normalizedName, normalizedCategory, normalizedParentCategory }) => {
+  const filterByCriteria = useCallback(
+    (categoryKey, priceLimit, keyword) =>
+      searchableProducts
+        .filter(
+          ({
+            product,
+            normalizedName,
+            normalizedCategory,
+            normalizedParentCategory,
+            normalizedCode,
+            normalizedArticle,
+            normalizedManufacturer,
+            normalizedSegment,
+          }) => {
+            const matchesCategory =
+              categoryKey === 'all' ||
+              (isLeafCategory(categoryKey)
+                ? product.categoryKey === categoryKey
+                : getParentCategoryKey(product.categoryKey) === categoryKey)
 
-        const matchesCategory =
-          categoryKey === 'all' ||
-          (isLeafCategory(categoryKey)
-            ? product.categoryKey === categoryKey
-            : getParentCategoryKey(product.categoryKey) === categoryKey)
+            const matchesPrice = product.price <= priceLimit
+            const matchesKeyword =
+              !keyword ||
+              normalizedName.includes(keyword) ||
+              normalizedCategory.includes(keyword) ||
+              normalizedParentCategory.includes(keyword) ||
+              normalizedCode.includes(keyword) ||
+              normalizedArticle.includes(keyword) ||
+              normalizedManufacturer.includes(keyword) ||
+              normalizedSegment.includes(keyword)
 
-        const matchesPrice = product.price <= priceLimit
-        const matchesKeyword =
-          !keyword ||
-          normalizedName.includes(keyword) ||
-          normalizedCategory.includes(keyword) ||
-          normalizedParentCategory.includes(keyword)
-
-        return matchesCategory && matchesPrice && matchesKeyword
-      })
-      .map(({ product }) => product)
+            return matchesCategory && matchesPrice && matchesKeyword
+          }
+        )
+        .map(({ product }) => product),
+    [searchableProducts]
+  )
 
   const filteredProducts = useMemo(
     () => filterByCriteria(selectedCategory, maxPrice, searchKeyword),
-    [maxPrice, searchKeyword, searchableProducts, selectedCategory]
+    [filterByCriteria, maxPrice, searchKeyword, selectedCategory]
   )
 
   const draftResultCount = useMemo(
     () => filterByCriteria(draftCategory, draftMaxPrice, draftSearchInput.toLowerCase().trim()).length,
-    [draftCategory, draftMaxPrice, draftSearchInput, searchableProducts]
+    [draftCategory, draftMaxPrice, draftSearchInput, filterByCriteria]
   )
 
   const visibleProducts = useMemo(
@@ -323,23 +346,23 @@ function Products() {
           <div className='rounded-xl border border-slate-200 bg-slate-50 p-3'>
             <label className='mb-2 block text-sm font-semibold text-slate-700'>
               {t('catalog.maxPrice')}:{' '}
-              {maxPrice.toLocaleString(i18n.language === 'ru' ? 'ru-RU' : 'uz-UZ')} {t('common.currency')}
+              {formatPrice(maxPrice, i18n.language)} {products[0].currency}
             </label>
             <input
               type='range'
               min={String(MIN_PRICE)}
               max={String(MAX_PRICE)}
-              step='100000'
+              step={String(PRICE_STEP)}
               value={maxPrice}
               onChange={event => setMaxPrice(Number(event.target.value))}
               className='w-full accent-blue-600'
             />
             <div className='mt-1 flex items-center justify-between text-xs text-slate-500'>
               <span>
-                {MIN_PRICE.toLocaleString(i18n.language === 'ru' ? 'ru-RU' : 'uz-UZ')} {t('common.currency')}
+                {formatPrice(MIN_PRICE, i18n.language)} {products[0].currency}
               </span>
               <span>
-                {MAX_PRICE.toLocaleString(i18n.language === 'ru' ? 'ru-RU' : 'uz-UZ')} {t('common.currency')}
+                {formatPrice(MAX_PRICE, i18n.language)} {products[0].currency}
               </span>
             </div>
           </div>
@@ -422,25 +445,23 @@ function Products() {
               <div className='rounded-xl border border-slate-200 bg-slate-50 p-3'>
                 <label className='mb-2 block text-sm font-semibold text-slate-700'>
                   {t('catalog.maxPrice')}:{' '}
-                  {draftMaxPrice.toLocaleString(i18n.language === 'ru' ? 'ru-RU' : 'uz-UZ')} {t('common.currency')}
+                  {formatPrice(draftMaxPrice, i18n.language)} {products[0].currency}
                 </label>
                 <input
                   type='range'
                   min={String(MIN_PRICE)}
                   max={String(MAX_PRICE)}
-                  step='100000'
+                  step={String(PRICE_STEP)}
                   value={draftMaxPrice}
                   onChange={event => setDraftMaxPrice(Number(event.target.value))}
                   className='w-full accent-blue-600'
                 />
                 <div className='mt-1 flex items-center justify-between text-xs text-slate-500'>
                   <span>
-                    {MIN_PRICE.toLocaleString(i18n.language === 'ru' ? 'ru-RU' : 'uz-UZ')}{' '}
-                    {t('common.currency')}
+                    {formatPrice(MIN_PRICE, i18n.language)} {products[0].currency}
                   </span>
                   <span>
-                    {MAX_PRICE.toLocaleString(i18n.language === 'ru' ? 'ru-RU' : 'uz-UZ')}{' '}
-                    {t('common.currency')}
+                    {formatPrice(MAX_PRICE, i18n.language)} {products[0].currency}
                   </span>
                 </div>
               </div>

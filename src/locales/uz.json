@@ -28,7 +28,9 @@
     "free": "Bepul",
     "loading": "Yuklanmoqda...",
     "continueShopping": "Xaridni davom ettirish",
-    "outOfStock": "Tugagan"
+    "outOfStock": "Tugagan",
+    "yes": "Ha",
+    "no": "Yo'q"
   },
   "entryNotice": {
     "badge": "Ommaviy oferta",
@@ -107,6 +109,7 @@
     "electrosurgery_units": "Elektrojarrohlik uskunalari",
     "surgical_lighting": "Operatsion yoritish",
     "sterilization_systems": "Sterilizatsiya tizimlari",
+    "sterilization_baskets": "Sterilizatsiya qutilari va savatlari",
     "plasma_sterilizers": "Plazmali sterilizatorlar",
     "steam_autoclaves": "Bug'li avtoklavlar",
     "rehabilitation_systems": "Reabilitatsiya tizimlari",
@@ -115,7 +118,9 @@
   },
   "productCard": {
     "addToCart": "Savatchaga qo'shish",
-    "toggleWishlist": "Saralanganlarga qo'shish yoki olib tashlash"
+    "toggleWishlist": "Saralanganlarga qo'shish yoki olib tashlash",
+    "increaseQuantity": "Miqdorni oshirish",
+    "decreaseQuantity": "Miqdorni kamaytirish"
   },
   "productDetails": {
     "notFoundTitle": "Mahsulot topilmadi",
@@ -129,6 +134,22 @@
     "saved": "Saqlangan",
     "relatedTitle": "Ushbu mahsulotga o'xshashlar",
     "relatedDescription": "Shu kategoriyadagi mashhur variantlar va tavsiya etilgan mahsulotlar."
+  },
+  "productData": {
+    "notProvided": "Ko'rsatilmagan",
+    "code": "Mahsulot kodi",
+    "article": "Artikul",
+    "manufacturer": "Ishlab chiqaruvchi",
+    "country": "Mamlakat",
+    "unit": "O'lchov birligi",
+    "segment": "Segment",
+    "priceSince": "Narx amal qilgan sana",
+    "stock": "Ombordagi soni",
+    "currency": "Valyuta",
+    "frontend": {
+      "featured": "Tavsiya etiladi",
+      "featuredLabel": "Tavsiya"
+    }
   },
   "wishlist": {
     "title": "Saralanganlar",

@@ -86,6 +86,7 @@ function Orders() {
     }),
     [normalizedOrders]
   )
+  const currency = normalizedOrders[0]?.currency || t('common.currency')
 
   const statusFilters = useMemo(() => {
     const counts = ORDER_STAGES.reduce((accumulator, key) => {
@@ -139,7 +140,7 @@ function Orders() {
           <article className='rounded-2xl border border-slate-200 bg-white/85 p-4'>
             <p className='text-xs uppercase tracking-wide text-slate-500'>{t('orders.total')}</p>
             <p className='mt-2 text-2xl font-bold text-slate-900'>
-              {formatPrice(summary.totalSpent, i18n.language)} {t('common.currency')}
+              {formatPrice(summary.totalSpent, i18n.language)} {currency}
             </p>
           </article>
           <article className='rounded-2xl border border-slate-200 bg-white/85 p-4'>
@@ -204,7 +205,7 @@ function Orders() {
                     {t(`status.${order.statusKey}`)}
                   </p>
                   <p className='text-sm font-semibold text-slate-900'>
-                    {formatPrice(order.total, i18n.language)} {t('common.currency')}
+                    {formatPrice(order.total, i18n.language)} {order.currency || currency}
                   </p>
                 </div>
               </div>
@@ -228,7 +229,11 @@ function Orders() {
                     key={`${order.id}-${item.productId}`}
                     className='flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-2.5'
                   >
-                    <img src={item.image} alt={item.name} className='h-14 w-14 rounded-lg object-cover' />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className='h-14 w-14 rounded-lg object-cover'
+                    />
                     <div className='min-w-0'>
                       <p className='truncate text-sm font-semibold text-slate-900'>{item.name}</p>
                       <p className='text-xs text-slate-500'>

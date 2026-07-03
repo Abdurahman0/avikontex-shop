@@ -91,7 +91,7 @@ export const useShopStore = create(
         const cart = get().cart
         const items = Object.entries(cart)
           .map(([id, quantity]) => {
-            const product = productsById[Number(id)]
+            const product = productsById[id]
             if (!product) {
               return null
             }
@@ -109,9 +109,10 @@ export const useShopStore = create(
         }
 
         const subtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
-        const delivery = subtotal >= 1000000 ? 0 : 35000
+        const delivery = subtotal >= 500 ? 0 : 15
         const total = subtotal + delivery
         const orderId = `AVK-${Date.now().toString().slice(-8)}`
+        const currency = productsById[items[0].productId]?.currency || 'USD'
 
         const order = {
           id: orderId,
@@ -122,6 +123,7 @@ export const useShopStore = create(
           subtotal,
           delivery,
           total,
+          currency,
         }
 
         set(state => ({
@@ -133,7 +135,7 @@ export const useShopStore = create(
       },
     }),
     {
-      name: 'avikontex-shop-state',
+      name: 'avikontex-shop-state-v2',
       storage: createJSONStorage(() => localStorage),
       partialize: state => ({
         cart: state.cart,
