@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import HandmadeSelect from '../components/common/HandmadeSelect'
 import { useShopStore } from '../store/shopStore'
+import { useAuthStore } from '../store/authStore'
 
 const initialForm = {
   fullName: '',
@@ -15,9 +16,21 @@ const initialForm = {
 function Checkout() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const user = useAuthStore(state => state.user)
   const cartCount = useShopStore(state => Object.keys(state.cart).length)
+  const shopStatus = useShopStore(state => state.status)
   const placeOrder = useShopStore(state => state.placeOrder)
   const [form, setForm] = useState(initialForm)
+
+  useEffect(() => {
+    const fullName = [user?.first_name, user?.last_name].filter(Boolean).join(' ')
+    const accountPhone = user?.phone || (String(user?.username || '').startsWith('+') ? user.username : '')
+    setForm(current => ({
+      ...current,
+      fullName: current.fullName || fullName,
+      phone: current.phone === '+998' && accountPhone ? accountPhone : current.phone,
+    }))
+  }, [user])
 
   const paymentOptions = useMemo(
     () => [
@@ -28,10 +41,13 @@ function Checkout() {
   )
 
   useEffect(() => {
+    if (shopStatus === 'idle' || shopStatus === 'loading') {
+      return
+    }
     if (!cartCount) {
       navigate('/cart')
     }
-  }, [cartCount, navigate])
+  }, [cartCount, navigate, shopStatus])
 
   const onInput = event => {
     setForm(previous => ({
@@ -40,7 +56,7 @@ function Checkout() {
     }))
   }
 
-  const onSubmit = event => {
+  const onSubmit = async event => {
     event.preventDefault()
 
     if (!form.fullName.trim() || !form.phone.trim() || !form.address.trim()) {
@@ -48,7 +64,7 @@ function Checkout() {
       return
     }
 
-    const orderId = placeOrder(form)
+    const orderId = await placeOrder(form)
 
     if (!orderId) {
       toast.error(t('checkout.emptyError'))

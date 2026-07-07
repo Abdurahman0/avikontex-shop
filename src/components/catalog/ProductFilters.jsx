@@ -1,5 +1,6 @@
 ﻿import { useTranslation } from 'react-i18next'
 import HandmadeSelect from '../common/HandmadeSelect'
+import PropTypes from 'prop-types'
 
 function ProductFilters({
   categories,
@@ -57,6 +58,18 @@ function ProductFilters({
       </div>
     </div>
   )
+}
+
+ProductFilters.propTypes = {
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({ key: PropTypes.string.isRequired, label: PropTypes.string.isRequired })
+  ).isRequired,
+  selectedCategory: PropTypes.string.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
+  minPrice: PropTypes.number.isRequired,
+  maxAvailablePrice: PropTypes.number.isRequired,
+  priceRange: PropTypes.number.isRequired,
+  onPriceRangeChange: PropTypes.func.isRequired,
 }
 
 export default ProductFilters

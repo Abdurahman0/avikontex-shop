@@ -109,7 +109,7 @@ function TrackOrder() {
           <h2 className='text-lg font-semibold text-slate-900'>{t('tracking.itemsTitle')}</h2>
           <div className='mt-4 space-y-3'>
             {order.items.map(item => {
-              const baseProduct = getProductById(item.productId)
+              const baseProduct = item.product || getProductById(item.productId)
               if (!baseProduct) {
                 return null
               }

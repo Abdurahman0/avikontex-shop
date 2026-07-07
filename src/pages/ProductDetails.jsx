@@ -7,13 +7,15 @@ import {
   HiOutlineGlobeAlt,
   HiOutlineHeart,
   HiOutlineIdentification,
+  HiOutlinePhoto,
   HiOutlineShoppingCart,
   HiOutlineTag,
 } from 'react-icons/hi2'
 import { useTranslation } from 'react-i18next'
 import EmptyState from '../components/common/EmptyState'
 import ProductCard from '../components/catalog/ProductCard'
-import { getLocalizedProduct, products } from '../data/products'
+import { getLocalizedProduct } from '../data/products'
+import { useCatalogStore } from '../store/catalogStore'
 import { useShopStore } from '../store/shopStore'
 import { animateToCart } from '../utils/animateToCart'
 import { formatOrderDate } from '../utils/formatOrderDate'
@@ -24,16 +26,39 @@ function ProductDetails() {
   const { t, i18n } = useTranslation()
   const { slug } = useParams()
   const imageRef = useRef(null)
-  const product = useMemo(() => products.find(item => item.slug === slug), [slug])
+  const products = useCatalogStore(state => state.products)
+  const loadProduct = useCatalogStore(state => state.loadProduct)
+  const product = useMemo(
+    () => products.find(item => item.slug === slug || item.code === slug || item.id === slug),
+    [products, slug]
+  )
   const isWishlisted = useShopStore(state =>
     product ? state.wishlist.includes(product.id) : false
   )
   const cartQuantity = useShopStore(state => (product ? state.cart[product.id] || 0 : 0))
+  const isCartLoading = useShopStore(state =>
+    product ? Boolean(state.cartMutations[product.id]) : false
+  )
+  const isWishlistLoading = useShopStore(state =>
+    product ? Boolean(state.wishlistMutations[product.id]) : false
+  )
   const toggleWishlist = useShopStore(state => state.toggleWishlist)
   const addToCart = useShopStore(state => state.addToCart)
   const updateCartQuantity = useShopStore(state => state.updateCartQuantity)
   const [selectedImage, setSelectedImage] = useState('')
   const [failedImages, setFailedImages] = useState({})
+  const [isLoadingProduct, setIsLoadingProduct] = useState(true)
+
+  useEffect(() => {
+    let active = true
+    setIsLoadingProduct(true)
+    loadProduct(slug).finally(() => {
+      if (active) setIsLoadingProduct(false)
+    })
+    return () => {
+      active = false
+    }
+  }, [loadProduct, slug])
 
   useEffect(() => {
     if (product) {
@@ -47,9 +72,8 @@ function ProductDetails() {
       return []
     }
 
-    return product.images.map((image, index) => ({
+    return product.images.map(image => ({
       original: image,
-      isFrontendOnly: index > 0,
       thumbnail: getOptimizedImageUrl(image, { width: 220, height: 220 }),
       main: getOptimizedImageUrl(image, { width: 1200, height: 1200 }),
     }))
@@ -62,15 +86,20 @@ function ProductDetails() {
 
     const otherProducts = products.filter(item => item.id !== product.id)
     const sameCategory = otherProducts
-      .filter(item => item.categoryKey === product.categoryKey)
-      .sort((first, second) => second.rating - first.rating)
+      .filter(item => item.group && item.group === product.group)
 
-    const featuredFallback = otherProducts
-      .filter(item => item.categoryKey !== product.categoryKey)
-      .sort((first, second) => Number(second.featured) - Number(first.featured))
+    const otherGroups = otherProducts.filter(item => item.group !== product.group)
 
-    return [...sameCategory, ...featuredFallback].slice(0, 4)
-  }, [product])
+    return [...sameCategory, ...otherGroups].slice(0, 4)
+  }, [product, products])
+
+  if (!product && isLoadingProduct) {
+    return (
+      <div className='flex min-h-[45vh] items-center justify-center'>
+        <span className='h-9 w-9 animate-spin rounded-full border-4 border-blue-100 border-t-blue-700' />
+      </div>
+    )
+  }
 
   if (!product) {
     return (
@@ -94,27 +123,28 @@ function ProductDetails() {
   const activeImageSet = optimizedGalleryImages.find(image => image.original === activeImage)
   const activeMainImage =
     activeImageSet?.main || getOptimizedImageUrl(activeImage, { width: 1200, height: 1200 })
-  const fallbackImage = getOptimizedImageUrl(product.frontendOnly.fallbackImage, {
-    width: 1200,
-    height: 1200,
-  })
+  const hasFiniteStock = Number.isFinite(product.stock)
+  const isOutOfStock = hasFiniteStock && product.stock < 1
+  const isAtStockLimit = hasFiniteStock && cartQuantity >= product.stock
+  const canIncrement = !isCartLoading && !isAtStockLimit
+  const incrementDisabledClass = isCartLoading
+    ? 'disabled:cursor-wait disabled:opacity-60'
+    : 'disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:opacity-100'
 
-  const onIncrement = sourceElement => {
-    const added = addToCart(product.id, 1)
-    if (added) {
+  const onIncrement = async sourceElement => {
+    if (!canIncrement) return
+    const added = await addToCart(product.id, 1, product)
+    if (added && product.images[0]) {
       animateToCart(sourceElement || imageRef.current, product.images[0])
     }
   }
 
-  const onDecrement = () => {
-    updateCartQuantity(product.id, cartQuantity - 1)
+  const onDecrement = async () => {
+    await updateCartQuantity(product.id, cartQuantity - 1)
   }
 
-  const handleImageError = (event, image) => {
-    if (event.currentTarget.src !== fallbackImage) {
-      setFailedImages(current => ({ ...current, [image]: true }))
-      event.currentTarget.src = fallbackImage
-    }
+  const handleImageError = image => {
+    setFailedImages(current => ({ ...current, [image]: true }))
   }
 
   const backendDetails = [
@@ -151,7 +181,9 @@ function ProductDetails() {
     {
       key: 'priceSince',
       label: t('productData.priceSince'),
-      value: formatOrderDate(product.priceSince, i18n.language),
+      value: product.priceSince
+        ? formatOrderDate(product.priceSince, i18n.language)
+        : t('productData.notProvided'),
       icon: HiOutlineCalendarDays,
     },
   ]
@@ -173,35 +205,40 @@ function ProductDetails() {
                       : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
-                  <img
-                    src={image.thumbnail}
-                    alt={localizedProduct.name}
-                    className='h-full w-full object-cover'
-                    loading='lazy'
-                    decoding='async'
-                  onError={event => handleImageError(event, image.original)}
-                />
-                  {image.isFrontendOnly || failedImages[image.original] ? (
-                    <span className='absolute bottom-1 right-1 h-2.5 w-2.5 rounded-full bg-violet-600 ring-2 ring-white' />
-                  ) : null}
+                  {failedImages[image.original] ? (
+                    <HiOutlinePhoto className='mx-auto text-2xl text-slate-400' />
+                  ) : (
+                    <img
+                      src={image.thumbnail}
+                      alt={localizedProduct.name}
+                      className='h-full w-full object-cover'
+                      loading='lazy'
+                      decoding='async'
+                      onError={() => handleImageError(image.original)}
+                    />
+                  )}
                 </button>
               ))}
             </div>
 
             <div className='relative order-1 min-w-0 flex-1 sm:order-2'>
-              <img
-                ref={imageRef}
-                src={activeMainImage}
-                alt={localizedProduct.name}
-                className='h-80 w-full rounded-xl object-cover sm:h-96 lg:h-[540px]'
-                loading='eager'
-                decoding='async'
-                fetchPriority='high'
-                onError={event => handleImageError(event, activeImage)}
-              />
-              {activeImageSet?.isFrontendOnly || failedImages[activeImage] ? (
-                <span className='absolute bottom-3 right-3 h-2.5 w-2.5 rounded-full bg-violet-600 ring-2 ring-white' />
-              ) : null}
+              {activeMainImage && !failedImages[activeImage] ? (
+                <img
+                  ref={imageRef}
+                  src={activeMainImage}
+                  alt={localizedProduct.name}
+                  className='h-80 w-full rounded-xl object-cover sm:h-96 lg:h-[540px]'
+                  loading='eager'
+                  decoding='async'
+                  fetchPriority='high'
+                  onError={() => handleImageError(activeImage)}
+                />
+              ) : (
+                <div className='flex h-80 w-full flex-col items-center justify-center gap-3 rounded-xl bg-slate-100 text-slate-400 sm:h-96 lg:h-[540px]'>
+                  <HiOutlinePhoto className='text-5xl' />
+                  <span className='text-sm font-semibold'>{t('productData.noImage')}</span>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -225,17 +262,8 @@ function ProductDetails() {
             <p className='text-3xl font-black tracking-tight text-slate-950 sm:text-4xl'>
               {formatPrice(product.price, i18n.language)}
             </p>
-            <span className='mb-1 inline-flex items-center gap-1.5 text-sm font-black text-slate-700'>
-              <span className='h-2 w-2 rounded-full bg-violet-600' />
-              {product.currency}
-            </span>
-            {product.oldPrice ? (
-              <p className='mb-1 inline-flex items-center gap-1.5 text-lg font-bold text-slate-500'>
-                <span className='h-2 w-2 rounded-full bg-violet-600' />
-                <span className='decoration-2 line-through'>
-                  {formatPrice(product.oldPrice, i18n.language)}
-                </span>
-              </p>
+            {product.currency ? (
+              <span className='mb-1 text-sm font-black text-slate-700'>{product.currency}</span>
             ) : null}
           </div>
 
@@ -257,42 +285,26 @@ function ProductDetails() {
           </div>
 
           <div className='mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4'>
-            <div className='grid grid-cols-2 gap-2 text-sm sm:grid-cols-4'>
+            <div className='grid gap-2 text-sm sm:grid-cols-2'>
               <div className='rounded-xl bg-white/80 p-2.5'>
                 <p className='inline-flex items-center gap-1.5 text-xs text-slate-500'>
-                  <span className='h-2 w-2 rounded-full bg-violet-600' />
-                  {t('common.rating')}
-                </p>
-                <p className='mt-1 font-black text-slate-900'>{product.rating}</p>
-              </div>
-              <div className='rounded-xl bg-white/80 p-2.5'>
-                <p className='inline-flex items-center gap-1.5 text-xs text-slate-500'>
-                  <span className='h-2 w-2 rounded-full bg-violet-600' />
                   {t('productData.stock')}
                 </p>
-                <p className='mt-1 font-black text-slate-900'>{product.stock}</p>
-              </div>
-              <div className='rounded-xl bg-white/80 p-2.5'>
-                <p className='inline-flex items-center gap-1.5 text-xs text-slate-500'>
-                  <span className='h-2 w-2 rounded-full bg-violet-600' />
-                  {t('productData.currency')}
-                </p>
-                <p className='mt-1 font-black text-slate-900'>{product.currency}</p>
-              </div>
-              <div className='rounded-xl bg-white/80 p-2.5'>
-                <p className='inline-flex items-center gap-1.5 text-xs text-slate-500'>
-                  <span className='h-2 w-2 rounded-full bg-violet-600' />
-                  {t('productData.frontend.featuredLabel')}
-                </p>
                 <p className='mt-1 font-black text-slate-900'>
-                  {product.featured ? t('common.yes') : t('common.no')}
+                  {product.stock ?? t('productData.notProvided')}
                 </p>
               </div>
+              {product.currency ? (
+                <div className='rounded-xl bg-white/80 p-2.5'>
+                  <p className='text-xs text-slate-500'>{t('productData.currency')}</p>
+                  <p className='mt-1 font-black text-slate-900'>{product.currency}</p>
+                </div>
+              ) : null}
             </div>
           </div>
 
           <div className='mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
-            {product.stock === 0 ? (
+            {isOutOfStock ? (
               <button
                 type='button'
                 disabled
@@ -306,19 +318,25 @@ function ProductDetails() {
                 <button
                   type='button'
                   onClick={onDecrement}
+                  disabled={isCartLoading}
                   aria-label={t('productCard.decreaseQuantity')}
-                  className='h-9 w-9 rounded-full bg-white text-lg font-black text-blue-800 shadow-sm ring-1 ring-blue-100 transition hover:bg-blue-100 active:scale-95'
+                  className='h-9 w-9 rounded-full bg-white text-lg font-black text-blue-800 shadow-sm ring-1 ring-blue-100 transition hover:bg-blue-100 active:scale-95 disabled:cursor-wait disabled:opacity-60'
                 >
                   -
                 </button>
                 <span className='min-w-10 text-center text-base font-black text-blue-900'>
-                  {cartQuantity}
+                  {isCartLoading ? (
+                    <span className='mx-auto block h-4 w-4 animate-spin rounded-full border-2 border-blue-100 border-t-blue-700' />
+                  ) : (
+                    cartQuantity
+                  )}
                 </span>
                 <button
                   type='button'
                   onClick={event => onIncrement(event.currentTarget)}
+                  disabled={!canIncrement}
                   aria-label={t('productCard.increaseQuantity')}
-                  className='h-9 w-9 rounded-full bg-blue-700 text-lg font-black text-white shadow-sm transition hover:bg-blue-800 active:scale-95'
+                  className={`h-9 w-9 rounded-full bg-blue-700 text-lg font-black text-white shadow-sm transition hover:bg-blue-800 active:scale-95 ${incrementDisabledClass}`}
                 >
                   +
                 </button>
@@ -327,19 +345,27 @@ function ProductDetails() {
               <button
                 type='button'
                 onClick={event => onIncrement(event.currentTarget)}
-                className='inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-800 sm:w-auto'
+                disabled={!canIncrement}
+                className={`inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-800 sm:w-auto ${incrementDisabledClass}`}
               >
-                <HiOutlineShoppingCart className='text-lg' />
+                {isCartLoading ? (
+                  <span className='h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white' />
+                ) : (
+                  <HiOutlineShoppingCart className='text-lg' />
+                )}
                 {t('productCard.addToCart')}
               </button>
             )}
 
             <button
               type='button'
-              onClick={() => toggleWishlist(product.id)}
-              className='inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-rose-500 hover:text-rose-600 sm:w-auto'
+              onClick={() => toggleWishlist(product.id, product)}
+              disabled={isWishlistLoading}
+              className='inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-rose-500 hover:text-rose-600 disabled:cursor-wait disabled:opacity-70 sm:w-auto'
             >
-              {isWishlisted ? (
+              {isWishlistLoading ? (
+                <span className='h-4 w-4 animate-spin rounded-full border-2 border-rose-100 border-t-rose-600' />
+              ) : isWishlisted ? (
                 <HiHeart className='text-lg text-rose-600' />
               ) : (
                 <HiOutlineHeart className='text-lg' />

@@ -1,4 +1,6 @@
-﻿import ProductCard from './ProductCard'
+import PropTypes from 'prop-types'
+import ProductCard from './ProductCard'
+import { productPropType } from '../../propTypes/product'
 
 function ProductGrid({ products }) {
   return (
@@ -8,6 +10,10 @@ function ProductGrid({ products }) {
       ))}
     </div>
   )
+}
+
+ProductGrid.propTypes = {
+  products: PropTypes.arrayOf(productPropType).isRequired,
 }
 
 export default ProductGrid

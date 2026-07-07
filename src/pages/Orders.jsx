@@ -43,7 +43,7 @@ function Orders() {
 
         const previewItems = order.items
           .map(item => {
-            const baseProduct = getProductById(item.productId)
+            const baseProduct = item.product || getProductById(item.productId)
             if (!baseProduct) {
               return null
             }

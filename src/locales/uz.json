@@ -1,6 +1,7 @@
 {
   "brand": {
     "name": "AVIKONTEX",
+    "shortName": "AV",
     "tagline": "Klinik texnologiyalar va uskunalar"
   },
   "language": {
@@ -67,13 +68,30 @@
     "description": "Diagnostika, monitoring, laboratoriya va jarrohlik uskunalari uchun professional katalog va buyurtma jarayoni.",
     "browseButton": "Mahsulotlarni ko'rish",
     "trackButton": "So'nggi buyurtmani kuzatish",
-    "featuredTitle": "Tavsiya etilgan klinik uskunalar"
+    "featuredTitle": "Tavsiya etilgan klinik uskunalar",
+    "catalogPreviewTitle": "Backend katalogidagi mahsulotlar"
   },
   "catalog": {
     "title": "Klinik texnologiyalar katalogi",
     "description": "6000+ mahsulot: kategoriya, narx va qidiruv bo'yicha tez tanlang. Klinika va tibbiy markazlar uchun mos uskunalar.",
     "categoryLabel": "Kategoriya",
+    "filtersTitle": "Katalog filtrlari",
+    "segmentLabel": "Mahsulot segmenti",
+    "priceRange": "Narx oralig'i",
+    "minPrice": "Minimal narx",
     "maxPrice": "Maksimal narx",
+    "inStockOnly": "Faqat mavjud mahsulotlar",
+    "sortLabel": "Saralash",
+    "sortNameAsc": "Nomi: A dan Z gacha",
+    "sortNameDesc": "Nomi: Z dan A gacha",
+    "sortCodeAsc": "Kod: o'sish tartibida",
+    "sortCodeDesc": "Kod: kamayish tartibida",
+    "resultsCount": "{{count}} ta mahsulot",
+    "liveData": "1C katalogi bilan sinxronlangan",
+    "loginForLive": "Mahsulotlar hammaga ochiq. Agar ko'rinmasa, backend bilan aloqa uzilgan bo'lishi mumkin.",
+    "apiUnavailable": "Backend katalogiga ulanib bo'lmadi. Qayta urinib ko'ring.",
+    "authRequiredTitle": "Mahsulotlarni yuklab bo'lmadi",
+    "authRequiredDescription": "Backend katalogiga ulanib bo'lmadi. Qayta urinib ko'ring.",
     "navigatorTitle": "Katalog navigatsiyasi",
     "navigatorDescription": "Asosiy bo'limni tanlang va ichki subkategoriyalarga o'ting.",
     "subcategoryTitle": "Subkategoriyalar",
@@ -137,6 +155,7 @@
   },
   "productData": {
     "notProvided": "Ko'rsatilmagan",
+    "noImage": "Rasm mavjud emas",
     "code": "Mahsulot kodi",
     "article": "Artikul",
     "manufacturer": "Ishlab chiqaruvchi",
@@ -369,6 +388,152 @@
       "material": "Programmable ROM va sessiya boshqaruvi",
       "fit": "Ortopediya va travmatologiya reabilitatsiyasi",
       "origin": "AVK Rehab"
+    }
+  },
+  "auth": {
+    "aside": {
+      "eyebrow": "AVIKONTEX shaxsiy kabineti",
+      "title": "Klinik xaridlarni bitta kabinetda boshqaring",
+      "description": "Jismoniy shaxslar va tashkilotlar uchun buyurtma berish, holatni kuzatish va xarid ma'lumotlarini boshqarishning xavfsiz usuli.",
+      "benefits": {
+        "orders": "Buyurtmalar va ularning holatini kuzatish",
+        "documents": "Tashkilot rekvizitlarini bir marta kiritish",
+        "security": "Telefon raqami orqali OTP tasdiqlash"
+      },
+      "security": "Ma'lumotlar himoyalangan ulanish orqali yuboriladi"
+    },
+    "types": {
+      "person": "Jismoniy shaxs",
+      "company": "Yuridik shaxs",
+      "personHint": "Shaxsiy xarid va buyurtmalar uchun",
+      "companyHint": "MChJ yoki YATT nomidan xarid qilish uchun"
+    },
+    "login": {
+      "eyebrow": "Kabinetga kirish",
+      "title": "Xush kelibsiz",
+      "description": "Ro'yxatdan o'tishda ishlatgan telefon raqamingiz yoki emailingiz bilan kiring.",
+      "accountType": "Akkaunt turini tanlang",
+      "personHint": "Shaxsiy akkaunt orqali kirish",
+      "companyHint": "Tashkilot akkaunti orqali kirish",
+      "invalidCredentials": "Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib, qayta urinib ko'ring.",
+      "noAccount": "Hali akkauntingiz yo'qmi?"
+    },
+    "register": {
+      "eyebrow": "Yangi akkaunt",
+      "title": "Ro'yxatdan o'tish",
+      "description": "Akkaunt turini tanlang. Tashkilotlar uchun rekvizitlar CRM tizimidagi mijoz kartasiga bog'lanadi.",
+      "terms": "Davom etish orqali kiritilgan ma'lumotlar to'g'riligini tasdiqlaysiz va akkauntni SMS-kod orqali faollashtirishga rozilik bildirasiz.",
+      "hasAccount": "Akkauntingiz bormi?"
+    },
+    "otp": {
+      "eyebrow": "Telefonni tasdiqlash",
+      "title": "SMS-kodni kiriting",
+      "description": "6 xonali tasdiqlash kodi {{phone}} raqamiga yuborildi.",
+      "invalid": "Kod noto'g'ri yoki amal qilish muddati tugagan. Qayta urinib ko'ring.",
+      "resend": "Kodni qayta yuborish",
+      "resendIn": "Kodni {{seconds}} soniyadan keyin qayta yuborish mumkin",
+      "missingTitle": "Tasdiqlanadigan raqam topilmadi",
+      "missingDescription": "Avval ro'yxatdan o'tish formasini to'ldiring. Shundan keyin SMS-kod yuboriladi."
+    },
+    "fields": {
+      "login": "Telefon raqami yoki email",
+      "first_name": "Ism",
+      "last_name": "Familiya",
+      "middle_name": "Otasining ismi",
+      "phone": "Telefon raqami",
+      "email": "Email",
+      "password": "Parol",
+      "confirm_password": "Parolni takrorlang",
+      "passport_series": "Pasport seriyasi",
+      "passport_number": "Pasport raqami",
+      "pinfl": "JSHSHIR",
+      "birth_date": "Tug'ilgan sana",
+      "gender": "Jins",
+      "company_type": "Tashkilot turi",
+      "company_name": "Tashkilot nomi",
+      "inn": "STIR",
+      "settlement_account": "Hisob raqami",
+      "bank": "Bank nomi",
+      "mfo": "MFO",
+      "legal_address": "Yuridik manzil",
+      "real_address": "Haqiqiy manzil",
+      "otp": "Tasdiqlash kodi"
+    },
+    "placeholders": {
+      "login": "+998 90 123 45 67 yoki email@example.uz",
+      "first_name": "Ismingiz",
+      "last_name": "Familiyangiz",
+      "middle_name": "Otasining ismi (ixtiyoriy)",
+      "phone": "+998 90 123 45 67",
+      "email": "email@example.uz",
+      "password": "Kamida 6 ta belgi",
+      "confirm_password": "Parolni qayta kiriting",
+      "passport_series": "AA",
+      "passport_number": "1234567",
+      "pinfl": "14 xonali raqam",
+      "birth_date": "",
+      "gender": "",
+      "company_type": "",
+      "company_name": "Tashkilotning to'liq nomi",
+      "inn": "9 xonali STIR",
+      "settlement_account": "Hisob raqami",
+      "bank": "Bank nomi",
+      "mfo": "Bank MFO kodi",
+      "legal_address": "Ro'yxatdan o'tgan manzil",
+      "real_address": "Faoliyat yuritish manzili"
+    },
+    "sections": {
+      "company": "Tashkilot ma'lumotlari",
+      "companyDescription": "Shartnoma va hisob hujjatlari uchun rasmiy ma'lumotlarni kiriting.",
+      "director": "Rahbar va aloqa ma'lumotlari",
+      "directorDescription": "Ro'yxatdan o'tuvchi shaxs tashkilot rahbari sifatida CRM tizimiga biriktiriladi.",
+      "personal": "Shaxsiy va aloqa ma'lumotlari",
+      "optionalIdentity": "Qo'shimcha shaxsiy ma'lumotlar (ixtiyoriy)",
+      "companyOptional": "Bank rekvizitlari va manzillar (ixtiyoriy)",
+      "security": "Akkaunt xavfsizligi"
+    },
+    "options": {
+      "male": "Erkak",
+      "female": "Ayol",
+      "mchj": "MChJ",
+      "yatt": "YATT"
+    },
+    "hints": {
+      "password": "Kamida 6 ta belgi ishlating."
+    },
+    "actions": {
+      "signIn": "Kirish",
+      "signingIn": "Kirilmoqda...",
+      "createAccount": "Ro'yxatdan o'tish",
+      "register": "Akkaunt yaratish",
+      "submitting": "Yuborilmoqda...",
+      "verify": "Tasdiqlash",
+      "verifying": "Tekshirilmoqda...",
+      "sending": "Yuborilmoqda...",
+      "togglePassword": "Parolni ko'rsatish yoki yashirish",
+      "logout": "Chiqish",
+      "account": "Shaxsiy kabinet"
+    },
+    "validation": {
+      "required": "Ushbu maydonni to'ldiring.",
+      "email": "To'g'ri email manzilini kiriting.",
+      "phone": "Telefon raqamini +998XXXXXXXXX formatida kiriting.",
+      "passwordLength": "Parol kamida 6 ta belgidan iborat bo'lishi kerak.",
+      "passwordMatch": "Parollar bir xil emas.",
+      "pinfl": "JSHSHIR 14 ta raqamdan iborat bo'lishi kerak.",
+      "inn": "STIR 9 ta raqamdan iborat bo'lishi kerak.",
+      "otp": "6 xonali tasdiqlash kodini kiriting."
+    },
+    "errors": {
+      "requestFailed": "So'rov bajarilmadi. Internet aloqasini tekshirib, qayta urinib ko'ring.",
+      "registrationFailed": "Ro'yxatdan o'tish amalga oshmadi. Belgilangan maydonlarni tekshiring."
+    },
+    "account": {
+      "contactTitle": "Aloqa ma'lumotlari",
+      "notProvided": "Ko'rsatilmagan",
+      "ordersTitle": "Mening buyurtmalarim",
+      "ordersDescription": "Barcha buyurtmalar, tarkibi va yetkazib berish holatini ko'ring.",
+      "openOrders": "Buyurtmalarni ochish"
     }
   },
   "orders": {

@@ -1,6 +1,7 @@
 {
   "brand": {
     "name": "AVIKONTEX",
+    "shortName": "AV",
     "tagline": "Clinical technologies and equipment"
   },
   "language": {
@@ -67,13 +68,30 @@
     "description": "A professional catalog and order flow for diagnostic, monitoring, laboratory, and surgical equipment.",
     "browseButton": "Browse products",
     "trackButton": "Track latest order",
-    "featuredTitle": "Recommended clinical equipment"
+    "featuredTitle": "Recommended clinical equipment",
+    "catalogPreviewTitle": "Products from the backend catalog"
   },
   "catalog": {
     "title": "Clinical technologies catalog",
     "description": "6,000+ products: quickly choose by category, price, and search. Equipment tailored for clinics and medical centers.",
     "categoryLabel": "Category",
+    "filtersTitle": "Catalog filters",
+    "segmentLabel": "Product segment",
+    "priceRange": "Price range",
+    "minPrice": "Minimum price",
     "maxPrice": "Maximum price",
+    "inStockOnly": "In-stock products only",
+    "sortLabel": "Sort products",
+    "sortNameAsc": "Name: A to Z",
+    "sortNameDesc": "Name: Z to A",
+    "sortCodeAsc": "Code: ascending",
+    "sortCodeDesc": "Code: descending",
+    "resultsCount": "{{count}} products",
+    "liveData": "Synchronized with the 1C catalog",
+    "loginForLive": "Products are available without registration. If they are not visible, the backend may be temporarily unavailable.",
+    "apiUnavailable": "The backend catalog could not be reached. Please try again.",
+    "authRequiredTitle": "Could not load products",
+    "authRequiredDescription": "Could not connect to the backend catalog. Please try again.",
     "navigatorTitle": "Catalog navigation",
     "navigatorDescription": "Choose a main section and drill down into subcategories.",
     "subcategoryTitle": "Subcategories",
@@ -137,6 +155,7 @@
   },
   "productData": {
     "notProvided": "Not specified",
+    "noImage": "No image available",
     "code": "Product code",
     "article": "Article",
     "manufacturer": "Manufacturer",
@@ -369,6 +388,152 @@
       "material": "Programmable ROM and session control",
       "fit": "Orthopedic and trauma rehabilitation",
       "origin": "AVK Rehab"
+    }
+  },
+  "auth": {
+    "aside": {
+      "eyebrow": "AVIKONTEX account",
+      "title": "Manage clinical equipment purchases in one account",
+      "description": "A secure way for individuals and organizations to place orders, track statuses, and manage buyer details.",
+      "benefits": {
+        "orders": "Track orders and their current status",
+        "documents": "Enter company details only once",
+        "security": "Verify your phone number by SMS"
+      },
+      "security": "Data is transferred over a secure connection"
+    },
+    "types": {
+      "person": "Individual",
+      "company": "Legal entity",
+      "personHint": "For personal purchases and orders",
+      "companyHint": "For purchases on behalf of an LLC or sole proprietor"
+    },
+    "login": {
+      "eyebrow": "Account sign in",
+      "title": "Welcome back",
+      "description": "Sign in with the phone number or email address used during registration.",
+      "accountType": "Choose account type",
+      "personHint": "Sign in to a personal account",
+      "companyHint": "Sign in to an organization account",
+      "invalidCredentials": "The login or password is incorrect. Check your details and try again.",
+      "noAccount": "Do not have an account yet?"
+    },
+    "register": {
+      "eyebrow": "New account",
+      "title": "Create an account",
+      "description": "Choose an account type. Company details will be linked to the customer record in the CRM.",
+      "terms": "By continuing, you confirm that the provided details are correct and agree to activate the account using an SMS code.",
+      "hasAccount": "Already have an account?"
+    },
+    "otp": {
+      "eyebrow": "Phone verification",
+      "title": "Enter the SMS code",
+      "description": "A six-digit verification code was sent to {{phone}}.",
+      "invalid": "The code is invalid or has expired. Try again.",
+      "resend": "Resend code",
+      "resendIn": "You can resend the code in {{seconds}} seconds",
+      "missingTitle": "No phone number to verify",
+      "missingDescription": "Complete the registration form first. We will then send a verification code by SMS."
+    },
+    "fields": {
+      "login": "Phone number or email",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "middle_name": "Middle name",
+      "phone": "Phone number",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm password",
+      "passport_series": "Passport series",
+      "passport_number": "Passport number",
+      "pinfl": "PINFL",
+      "birth_date": "Date of birth",
+      "gender": "Gender",
+      "company_type": "Company type",
+      "company_name": "Company name",
+      "inn": "TIN",
+      "settlement_account": "Settlement account",
+      "bank": "Bank name",
+      "mfo": "MFO",
+      "legal_address": "Legal address",
+      "real_address": "Operating address",
+      "otp": "Verification code"
+    },
+    "placeholders": {
+      "login": "+998 90 123 45 67 or email@example.uz",
+      "first_name": "Your first name",
+      "last_name": "Your last name",
+      "middle_name": "Middle name (optional)",
+      "phone": "+998 90 123 45 67",
+      "email": "email@example.uz",
+      "password": "At least 6 characters",
+      "confirm_password": "Enter the password again",
+      "passport_series": "AA",
+      "passport_number": "1234567",
+      "pinfl": "14 digits",
+      "birth_date": "",
+      "gender": "",
+      "company_type": "",
+      "company_name": "Full legal name",
+      "inn": "9-digit TIN",
+      "settlement_account": "Settlement account",
+      "bank": "Bank name",
+      "mfo": "Bank MFO code",
+      "legal_address": "Registered address",
+      "real_address": "Operating address"
+    },
+    "sections": {
+      "company": "Company details",
+      "companyDescription": "Enter official details for contracts and billing documents.",
+      "director": "Director and contact details",
+      "directorDescription": "The registering user will be linked in the CRM as the company director.",
+      "personal": "Personal and contact details",
+      "optionalIdentity": "Additional identity details (optional)",
+      "companyOptional": "Bank details and addresses (optional)",
+      "security": "Account security"
+    },
+    "options": {
+      "male": "Male",
+      "female": "Female",
+      "mchj": "LLC",
+      "yatt": "Sole proprietor"
+    },
+    "hints": {
+      "password": "Use at least 6 characters."
+    },
+    "actions": {
+      "signIn": "Sign in",
+      "signingIn": "Signing in...",
+      "createAccount": "Create account",
+      "register": "Create account",
+      "submitting": "Submitting...",
+      "verify": "Verify",
+      "verifying": "Verifying...",
+      "sending": "Sending...",
+      "togglePassword": "Show or hide password",
+      "logout": "Sign out",
+      "account": "My account"
+    },
+    "validation": {
+      "required": "Complete this field.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter the phone number as +998XXXXXXXXX.",
+      "passwordLength": "The password must contain at least 6 characters.",
+      "passwordMatch": "The passwords do not match.",
+      "pinfl": "PINFL must contain 14 digits.",
+      "inn": "TIN must contain 9 digits.",
+      "otp": "Enter the six-digit verification code."
+    },
+    "errors": {
+      "requestFailed": "The request could not be completed. Check your connection and try again.",
+      "registrationFailed": "Registration failed. Check the highlighted fields."
+    },
+    "account": {
+      "contactTitle": "Contact details",
+      "notProvided": "Not provided",
+      "ordersTitle": "My orders",
+      "ordersDescription": "View all orders, their items, and delivery status.",
+      "openOrders": "Open orders"
     }
   },
   "orders": {

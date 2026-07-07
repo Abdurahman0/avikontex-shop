@@ -4,6 +4,7 @@ import {
   HiHeart,
   HiOutlineBuildingOffice2,
   HiOutlineHeart,
+  HiOutlinePhoto,
   HiOutlineShoppingCart,
 } from 'react-icons/hi2'
 import { useTranslation } from 'react-i18next'
@@ -12,75 +13,78 @@ import { getLocalizedProduct } from '../../data/products'
 import { animateToCart } from '../../utils/animateToCart'
 import { formatPrice } from '../../utils/formatPrice'
 import { getOptimizedImageUrl } from '../../utils/getOptimizedImageUrl'
+import { productPropType } from '../../propTypes/product'
 
 function ProductCard({ product }) {
   const { t, i18n } = useTranslation()
   const imageRef = useRef(null)
   const isWishlisted = useShopStore(state => state.wishlist.includes(product.id))
   const cartQuantity = useShopStore(state => state.cart[product.id] || 0)
+  const isCartLoading = useShopStore(state => Boolean(state.cartMutations[product.id]))
+  const isWishlistLoading = useShopStore(state => Boolean(state.wishlistMutations[product.id]))
   const addToCart = useShopStore(state => state.addToCart)
   const updateCartQuantity = useShopStore(state => state.updateCartQuantity)
   const toggleWishlist = useShopStore(state => state.toggleWishlist)
-  const [isUsingFallbackImage, setIsUsingFallbackImage] = useState(false)
+  const [imageFailed, setImageFailed] = useState(false)
   const localizedProduct = getLocalizedProduct(product, t)
-  const imageSrc = getOptimizedImageUrl(product.images[0], { width: 760, height: 760 })
-  const fallbackImage = getOptimizedImageUrl(product.frontendOnly.fallbackImage, {
-    width: 760,
-    height: 760,
-  })
+  const primaryImage = product.images[0] || ''
+  const imageSrc = getOptimizedImageUrl(primaryImage, { width: 760, height: 760 })
+  const hasFiniteStock = Number.isFinite(product.stock)
+  const isOutOfStock = hasFiniteStock && product.stock < 1
+  const isAtStockLimit = hasFiniteStock && cartQuantity >= product.stock
+  const canIncrement = !isCartLoading && !isAtStockLimit
+  const incrementDisabledClass = isCartLoading
+    ? 'disabled:cursor-wait disabled:opacity-60'
+    : 'disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:opacity-100'
 
-  const onIncrement = sourceElement => {
-    const added = addToCart(product.id, 1)
-    if (added) {
-      animateToCart(sourceElement || imageRef.current, product.images[0])
+  const onIncrement = async sourceElement => {
+    if (!canIncrement) return
+    const added = await addToCart(product.id, 1, product)
+    if (added && primaryImage) {
+      animateToCart(sourceElement || imageRef.current, primaryImage)
     }
   }
 
-  const onDecrement = () => {
-    updateCartQuantity(product.id, cartQuantity - 1)
+  const onDecrement = async () => {
+    await updateCartQuantity(product.id, cartQuantity - 1)
   }
 
-  const handleImageError = event => {
-    if (event.currentTarget.src !== fallbackImage) {
-      setIsUsingFallbackImage(true)
-      event.currentTarget.src = fallbackImage
-    }
-  }
+  const handleImageError = () => setImageFailed(true)
+  const visibleImage = imageFailed ? '' : imageSrc
 
   return (
     <article className='group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg [contain-intrinsic-size:610px] [content-visibility:auto]'>
       <div className='relative'>
         <Link to={`/products/${product.slug}`} className='block'>
-          <img
-            ref={imageRef}
-            src={imageSrc}
-            alt={localizedProduct.name}
-            className='h-64 w-full object-cover sm:h-72'
-            loading='lazy'
-            decoding='async'
-            fetchPriority='low'
-            onError={handleImageError}
-          />
+          {visibleImage ? (
+            <img
+              ref={imageRef}
+              src={visibleImage}
+              alt={localizedProduct.name}
+              className='h-64 w-full object-cover sm:h-72'
+              loading='lazy'
+              decoding='async'
+              fetchPriority='low'
+              onError={handleImageError}
+            />
+          ) : (
+            <div className='flex h-64 w-full flex-col items-center justify-center gap-2 bg-slate-100 text-slate-400 sm:h-72'>
+              <HiOutlinePhoto className='text-4xl' />
+              <span className='text-xs font-semibold'>{t('productData.noImage')}</span>
+            </div>
+          )}
         </Link>
-
-        {product.featured ? (
-          <span className='absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 shadow-sm'>
-            <span className='h-2 w-2 rounded-full bg-violet-600' />
-            {t('productData.frontend.featured')}
-          </span>
-        ) : null}
-
-        {isUsingFallbackImage ? (
-          <span className='absolute bottom-3 left-3 h-2.5 w-2.5 rounded-full bg-violet-600 ring-2 ring-white' />
-        ) : null}
 
         <button
           type='button'
-          onClick={() => toggleWishlist(product.id)}
-          className='absolute right-3 top-3 rounded-full border border-white/80 bg-white/95 p-2 text-slate-700 shadow-sm transition hover:border-rose-200 hover:text-rose-600'
+          onClick={() => toggleWishlist(product.id, product)}
+          disabled={isWishlistLoading}
+          className='absolute right-3 top-3 rounded-full border border-white/80 bg-white/95 p-2 text-slate-700 shadow-sm transition hover:border-rose-200 hover:text-rose-600 disabled:cursor-wait disabled:opacity-70'
           aria-label={t('productCard.toggleWishlist')}
         >
-          {isWishlisted ? (
+          {isWishlistLoading ? (
+            <span className='block h-5 w-5 animate-spin rounded-full border-2 border-rose-100 border-t-rose-600' />
+          ) : isWishlisted ? (
             <HiHeart className='text-xl text-rose-600' />
           ) : (
             <HiOutlineHeart className='text-xl' />
@@ -114,77 +118,78 @@ function ProductCard({ product }) {
           <p className='text-xl font-black tracking-tight text-slate-950'>
             {formatPrice(product.price, i18n.language)}
           </p>
-          <span className='mb-0.5 inline-flex items-center gap-1.5 text-xs font-bold text-slate-700'>
-            <span className='h-2 w-2 rounded-full bg-violet-600' />
-            {product.currency}
-          </span>
-          {product.oldPrice ? (
-            <p className='mb-0.5 inline-flex items-center gap-1.5 text-sm font-bold text-slate-500'>
-              <span className='h-2 w-2 rounded-full bg-violet-600' />
-              <span className='decoration-2 line-through'>
-                {formatPrice(product.oldPrice, i18n.language)}
-              </span>
-            </p>
+          {product.currency ? (
+            <span className='mb-0.5 text-xs font-bold text-slate-700'>{product.currency}</span>
           ) : null}
         </div>
 
-        <div className='mt-3 rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-slate-700'>
-          <div className='flex items-center justify-between gap-3 text-sm font-bold'>
-            <span className='inline-flex items-center gap-1.5'>
-              <span className='h-2 w-2 rounded-full bg-violet-600' />
-              {t('common.rating')}: {product.rating}
-            </span>
-            <span className='inline-flex items-center gap-1.5'>
-              <span className='h-2 w-2 rounded-full bg-violet-600' />
-              {t('productData.stock')}: {product.stock}
-            </span>
+        <div className='mt-auto pt-3'>
+          <div className='rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-slate-700'>
+            <div className='text-sm font-bold'>
+              {t('productData.stock')}: {product.stock ?? t('productData.notProvided')}
+            </div>
           </div>
-        </div>
 
-        {product.stock === 0 ? (
-          <button
-            type='button'
-            disabled
-            className='mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-400'
-          >
-            <HiOutlineShoppingCart className='text-lg' />
-            {t('common.outOfStock')}
-          </button>
-        ) : cartQuantity > 0 ? (
-          <div className='mt-4 inline-flex w-full items-center justify-between rounded-full border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-1.5 py-1 shadow-sm'>
+          {isOutOfStock ? (
             <button
               type='button'
-              onClick={onDecrement}
-              aria-label={t('productCard.decreaseQuantity')}
-              className='h-8 w-8 rounded-full bg-white text-base font-bold text-blue-800 shadow-sm ring-1 ring-blue-100 transition hover:bg-blue-100 active:scale-95'
+              disabled
+              className='mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-400'
             >
-              -
+              <HiOutlineShoppingCart className='text-lg' />
+              {t('common.outOfStock')}
             </button>
-            <span className='min-w-10 text-center text-sm font-black text-blue-900'>
-              {cartQuantity}
-            </span>
+          ) : cartQuantity > 0 ? (
+            <div className='mt-4 inline-flex w-full items-center justify-between rounded-full border border-blue-200 bg-gradient-to-b from-blue-50 to-white px-1.5 py-1 shadow-sm'>
+              <button
+                type='button'
+                onClick={onDecrement}
+                disabled={isCartLoading}
+                aria-label={t('productCard.decreaseQuantity')}
+                className='h-8 w-8 rounded-full bg-white text-base font-bold text-blue-800 shadow-sm ring-1 ring-blue-100 transition hover:bg-blue-100 active:scale-95 disabled:cursor-wait disabled:opacity-60'
+              >
+                -
+              </button>
+              <span className='min-w-10 text-center text-sm font-black text-blue-900'>
+                {isCartLoading ? (
+                  <span className='mx-auto block h-4 w-4 animate-spin rounded-full border-2 border-blue-100 border-t-blue-700' />
+                ) : (
+                  cartQuantity
+                )}
+              </span>
+              <button
+                type='button'
+                onClick={event => onIncrement(event.currentTarget)}
+                disabled={!canIncrement}
+                aria-label={t('productCard.increaseQuantity')}
+                className={`h-8 w-8 rounded-full bg-blue-700 text-base font-bold text-white shadow-sm transition hover:bg-blue-800 active:scale-95 ${incrementDisabledClass}`}
+              >
+                +
+              </button>
+            </div>
+          ) : (
             <button
               type='button'
               onClick={event => onIncrement(event.currentTarget)}
-              aria-label={t('productCard.increaseQuantity')}
-              className='h-8 w-8 rounded-full bg-blue-700 text-base font-bold text-white shadow-sm transition hover:bg-blue-800 active:scale-95'
+              disabled={!canIncrement}
+              className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-800 ${incrementDisabledClass}`}
             >
-              +
+              {isCartLoading ? (
+                <span className='h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white' />
+              ) : (
+                <HiOutlineShoppingCart className='text-lg' />
+              )}
+              {t('productCard.addToCart')}
             </button>
-          </div>
-        ) : (
-          <button
-            type='button'
-            onClick={event => onIncrement(event.currentTarget)}
-            className='mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-800'
-          >
-            <HiOutlineShoppingCart className='text-lg' />
-            {t('productCard.addToCart')}
-          </button>
-        )}
+          )}
+        </div>
       </div>
     </article>
   )
+}
+
+ProductCard.propTypes = {
+  product: productPropType.isRequired,
 }
 
 export default memo(ProductCard)

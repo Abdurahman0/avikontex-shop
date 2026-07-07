@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { HiCheck, HiChevronDown } from 'react-icons/hi2'
+import PropTypes from 'prop-types'
 
 function HandmadeSelect({ value, options, onChange, ariaLabel }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -76,6 +77,15 @@ function HandmadeSelect({ value, options, onChange, ariaLabel }) {
       ) : null}
     </div>
   )
+}
+
+HandmadeSelect.propTypes = {
+  value: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string.isRequired })
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
+  ariaLabel: PropTypes.string.isRequired,
 }
 
 export default HandmadeSelect

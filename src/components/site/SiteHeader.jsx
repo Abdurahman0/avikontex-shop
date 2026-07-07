@@ -8,7 +8,9 @@ import {
 } from 'react-icons/hi2'
 import { UZ, RU, US } from 'country-flag-icons/react/3x2'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
 import { useShopStore } from '../../store/shopStore'
+import AccountMenu from './AccountMenu'
 
 const navLinks = [
   { to: '/', labelKey: 'nav.home' },
@@ -28,6 +30,10 @@ function IconBadge({ count }) {
       {count > 99 ? '99+' : count}
     </span>
   )
+}
+
+IconBadge.propTypes = {
+  count: PropTypes.number.isRequired,
 }
 
 function SiteHeader() {
@@ -132,12 +138,12 @@ function SiteHeader() {
         isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
-      <div className='mx-auto flex w-full max-w-[1600px] flex-wrap items-center gap-4 overflow-visible px-4 py-3 sm:px-6 lg:px-8'>
+      <div className='mx-auto flex w-full max-w-[1600px] flex-wrap items-center gap-2 overflow-visible px-4 py-3 sm:gap-4 sm:px-6 lg:px-8'>
         <NavLink to='/' className='flex items-center gap-3'>
           <span className='inline-flex h-9 w-9 items-center justify-center rounded-lg bg-blue-700 text-sm font-bold text-white'>
-            AV
+            {t('brand.shortName')}
           </span>
-          <div>
+          <div className='hidden sm:block'>
             <p className='text-xs font-semibold uppercase tracking-[0.2em] text-blue-700'>
               {t('brand.name')}
             </p>
@@ -207,6 +213,7 @@ function SiteHeader() {
         </nav>
 
         <div className='ml-auto flex items-center gap-2'>
+          <AccountMenu />
           <NavLink
             to='/wishes'
             className='relative rounded-full border border-slate-300 p-2 text-slate-700 transition hover:border-blue-600 hover:text-blue-700'
