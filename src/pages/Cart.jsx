@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next'
 import EmptyState from '../components/common/EmptyState'
 import { getLocalizedProduct } from '../data/products'
 import { getProductById, useShopStore } from '../store/shopStore'
+import { useAuthStore } from '../store/authStore'
 import { animateToCart } from '../utils/animateToCart'
+import { getClientVerification, getVerificationTone } from '../utils/clientVerification'
 import { formatPrice } from '../utils/formatPrice'
 
 function Cart() {
   const { t, i18n } = useTranslation()
+  const user = useAuthStore(state => state.user)
   const cart = useShopStore(state => state.cart)
   const addToCart = useShopStore(state => state.addToCart)
   const updateCartQuantity = useShopStore(state => state.updateCartQuantity)
@@ -35,6 +38,13 @@ function Cart() {
   const delivery = subtotal >= 500 ? 0 : cartItems.length ? 15 : 0
   const total = subtotal + delivery
   const currency = cartItems[0]?.currency || ''
+  const verification = getClientVerification(user)
+  const verificationTone = getVerificationTone(verification.status)
+  const verificationStyles = {
+    pending: 'border-amber-200 bg-amber-50 text-amber-900',
+    verified: 'border-emerald-200 bg-emerald-50 text-emerald-800',
+    rejected: 'border-rose-200 bg-rose-50 text-rose-800',
+  }
 
   if (!cartItems.length && (shopStatus === 'idle' || shopStatus === 'loading')) {
     return (
@@ -149,6 +159,15 @@ function Cart() {
 
       <aside className='h-fit rounded-2xl border border-slate-200 bg-white p-5'>
         <h2 className='text-lg font-semibold text-slate-900'>{t('cart.summary')}</h2>
+        {verification.requiresReview && verification.status ? (
+          <div className={`mt-4 rounded-xl border px-3 py-2 text-sm font-semibold ${verificationStyles[verificationTone]}`}>
+            {verification.isBlocked
+              ? t(`verification.${verificationTone}Description`, {
+                  reason: verification.rejectionReason || t('verification.noReason'),
+                })
+              : t(`verification.${verificationTone}Title`)}
+          </div>
+        ) : null}
         <div className='mt-4 space-y-2 text-sm text-slate-600'>
           <div className='flex justify-between'>
             <span>{t('cart.subtotal')}</span>
@@ -172,12 +191,22 @@ function Cart() {
           </div>
         </div>
 
-        <Link
-          to='/checkout'
-          className='mt-5 inline-flex w-full items-center justify-center rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-800'
-        >
-          {t('cart.checkout')}
-        </Link>
+        {verification.isBlocked ? (
+          <button
+            type='button'
+            disabled
+            className='mt-5 inline-flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-slate-300 px-4 py-2 text-sm font-semibold text-white'
+          >
+            {t('cart.checkout')}
+          </button>
+        ) : (
+          <Link
+            to='/checkout'
+            className='mt-5 inline-flex w-full items-center justify-center rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-800'
+          >
+            {t('cart.checkout')}
+          </Link>
+        )}
       </aside>
     </div>
   )

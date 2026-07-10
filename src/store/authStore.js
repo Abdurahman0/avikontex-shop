@@ -8,7 +8,7 @@ async function completeAuthentication(session) {
   }
 
   tokenStorage.set(session)
-  return session.user || authService.getMe()
+  return authService.getMe()
 }
 
 export const useAuthStore = create((set, get) => ({
@@ -42,6 +42,12 @@ export const useAuthStore = create((set, get) => ({
 
   verifyOtp: async data => {
     const user = await completeAuthentication(await authService.verifyOtp(data))
+    set({ user, status: 'authenticated' })
+    return user
+  },
+
+  refreshMe: async () => {
+    const user = await authService.getMe()
     set({ user, status: 'authenticated' })
     return user
   },

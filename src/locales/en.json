@@ -200,7 +200,11 @@
     "confirm": "Confirm order",
     "validationError": "Please fill in all required fields.",
     "emptyError": "Unable to place the order. Your cart is empty.",
-    "success": "Order submitted successfully."
+    "success": "Order submitted successfully.",
+    "verificationBlocked": "You cannot place an order until your account is verified.",
+    "savedAddress": "Saved delivery address",
+    "manualAddress": "Enter address manually",
+    "loadingAddresses": "Loading company delivery addresses..."
   },
   "tracking": {
     "notFoundTitle": "Order not found",
@@ -547,5 +551,55 @@
     "itemsCount": "Items count",
     "total": "Total",
     "trackButton": "Track"
+  },
+  "verification": {
+    "legalReviewTitle": "Legal entity account is under operator review",
+    "legalReviewDescription": "Ordering opens after an operator verifies the company details and documents.",
+    "pendingTitle": "Your company account is under review",
+    "pendingDescription": "You will be able to place orders after the operator approves the company details and documents.",
+    "verifiedTitle": "Company account verified",
+    "verifiedDescription": "The legal entity account is verified. Ordering is enabled.",
+    "rejectedTitle": "Company account rejected",
+    "rejectedDescription": "Rejected: {{reason}}",
+    "noReason": "No reason provided",
+    "status": {
+      "pending": "Under review",
+      "verified": "Verified",
+      "rejected": "Rejected"
+    },
+    "steps": {
+      "registered": "Registered",
+      "documents": "Documents uploaded",
+      "operator": "Operator review",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "order": "Ordering enabled"
+    },
+    "documents": {
+      "title": "Company documents",
+      "description": "Upload the documents required for operator review.",
+      "uploadTitle": "Upload document",
+      "documentType": "Document type",
+      "chooseFile": "Choose a file",
+      "file": "Document",
+      "open": "Open",
+      "upload": "Upload",
+      "uploading": "Uploading...",
+      "empty": "No documents have been uploaded yet.",
+      "noCompany": "Company details were not found. Check the registration data.",
+      "required": "(required)",
+      "uploadSuccess": "Document uploaded.",
+      "uploadError": "Could not upload the document."
+    },
+    "company": {
+      "title": "Company details",
+      "legalName": "Legal name",
+      "inn": "TIN",
+      "type": "Company type",
+      "bank": "Bank",
+      "mfo": "MFO",
+      "defaultAddress": "Default address",
+      "loadError": "Could not load company details."
+    }
   }
 }

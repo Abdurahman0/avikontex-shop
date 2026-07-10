@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next'
 import {
   HiArrowRight,
   HiOutlineBuildingOffice2,
+  HiOutlineCheckBadge,
   HiOutlineEnvelope,
   HiOutlinePhone,
   HiOutlineShoppingBag,
   HiOutlineUserCircle,
 } from 'react-icons/hi2'
 import { useAuthStore } from '../store/authStore'
+import { getClientVerification, getVerificationTone } from '../utils/clientVerification'
+import LegalEntityReviewPanel from '../components/account/LegalEntityReviewPanel'
 
 export default function Account() {
   const { t } = useTranslation()
@@ -16,7 +19,9 @@ export default function Account() {
   const user = useAuthStore(state => state.user)
   const logout = useAuthStore(state => state.logout)
   const displayName = [user?.first_name, user?.last_name].filter(Boolean).join(' ') || user?.username
-  const isCompany = user?.account_type === 'yuridik' || user?.client_type === 'yuridik'
+  const verification = getClientVerification(user)
+  const isCompany = verification.requiresReview
+  const verificationTone = getVerificationTone(verification.status)
 
   const onLogout = () => {
     logout()
@@ -36,11 +41,21 @@ export default function Account() {
               <h1 className='mt-1 text-2xl font-semibold sm:text-3xl'>{displayName}</h1>
             </div>
           </div>
-          <button onClick={onLogout} className='self-start rounded-xl border border-white/20 px-4 py-2.5 text-sm font-bold transition hover:bg-white/10'>
-            {t('auth.actions.logout')}
-          </button>
+          <div className='flex flex-col items-start gap-3 sm:items-end'>
+            {verification.requiresReview && verification.status ? (
+              <span className='inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold ring-1 ring-white/15'>
+                <HiOutlineCheckBadge className='text-lg' />
+                {t(`verification.status.${verificationTone}`)}
+              </span>
+            ) : null}
+            <button onClick={onLogout} className='self-start rounded-xl border border-white/20 px-4 py-2.5 text-sm font-bold transition hover:bg-white/10 sm:self-auto'>
+              {t('auth.actions.logout')}
+            </button>
+          </div>
         </div>
       </div>
+
+      {verification.requiresReview ? <LegalEntityReviewPanel verification={verification} /> : null}
 
       <div className='grid gap-6 lg:grid-cols-[1.1fr_0.9fr]'>
         <article className='rounded-2xl border border-slate-200 bg-white p-6'>

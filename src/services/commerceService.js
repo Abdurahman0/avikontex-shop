@@ -26,7 +26,7 @@ export function normalizeCollectionResponse(payload, keys) {
   const data = unwrapPayload(payload)
   return {
     items: getCollection(payload, keys),
-    total: Number(data?.total ?? data?.count ?? data?.totalCount ?? 0) || null,
+    total: Number(data?.totalCount ?? data?.total_count ?? data?.total ?? data?.count ?? 0) || null,
     nextCursor: data?.nextCursor ?? data?.next_cursor ?? data?.cursor?.next ?? null,
     hasMore: Boolean(data?.hasMore ?? data?.has_more ?? data?.nextCursor ?? data?.next_cursor),
   }

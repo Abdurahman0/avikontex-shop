@@ -200,7 +200,11 @@
     "confirm": "Buyurtmani tasdiqlash",
     "validationError": "Iltimos, barcha majburiy maydonlarni to'ldiring.",
     "emptyError": "Buyurtma berib bo'lmadi. Savatcha bo'sh.",
-    "success": "Buyurtma muvaffaqiyatli yuborildi."
+    "success": "Buyurtma muvaffaqiyatli yuborildi.",
+    "verificationBlocked": "Akkaunt tasdiqlanmaguncha buyurtma berib bo'lmaydi.",
+    "savedAddress": "Saqlangan yetkazib berish manzili",
+    "manualAddress": "Manzilni qo'lda kiritish",
+    "loadingAddresses": "Kompaniya yetkazib berish manzillari yuklanmoqda..."
   },
   "tracking": {
     "notFoundTitle": "Buyurtma topilmadi",
@@ -547,5 +551,55 @@
     "itemsCount": "Mahsulotlar soni",
     "total": "Jami",
     "trackButton": "Kuzatish"
+  },
+  "verification": {
+    "legalReviewTitle": "Yuridik akkaunt operator tekshiruvida",
+    "legalReviewDescription": "Kompaniya ma'lumotlari va hujjatlar operator tomonidan tasdiqlangandan keyin buyurtma berish ochiladi.",
+    "pendingTitle": "Kompaniya akkauntingiz tekshirilmoqda",
+    "pendingDescription": "Operator kompaniya ma'lumotlari va hujjatlarni tasdiqlagandan keyin buyurtma bera olasiz.",
+    "verifiedTitle": "Kompaniya akkaunti tasdiqlangan",
+    "verifiedDescription": "Yuridik akkaunt tasdiqlangan. Buyurtma berish ochiq.",
+    "rejectedTitle": "Kompaniya akkaunti rad etildi",
+    "rejectedDescription": "Rad etildi: {{reason}}",
+    "noReason": "Sabab ko'rsatilmagan",
+    "status": {
+      "pending": "Tekshirilmoqda",
+      "verified": "Tasdiqlangan",
+      "rejected": "Rad etildi"
+    },
+    "steps": {
+      "registered": "Ro'yxatdan o'tdingiz",
+      "documents": "Hujjatlar yuklanadi",
+      "operator": "Operator tekshiradi",
+      "approved": "Tasdiqlandi",
+      "rejected": "Rad etildi",
+      "order": "Buyurtma ochiladi"
+    },
+    "documents": {
+      "title": "Kompaniya hujjatlari",
+      "description": "Operator tekshirishi uchun zarur hujjatlarni yuklang.",
+      "uploadTitle": "Hujjat yuklash",
+      "documentType": "Hujjat turi",
+      "chooseFile": "Fayl tanlang",
+      "file": "Hujjat",
+      "open": "Ochish",
+      "upload": "Yuklash",
+      "uploading": "Yuklanmoqda...",
+      "empty": "Hali hujjatlar yuklanmagan.",
+      "noCompany": "Kompaniya ma'lumoti topilmadi. Ro'yxatdan o'tish ma'lumotlarini tekshiring.",
+      "required": "(majburiy)",
+      "uploadSuccess": "Hujjat yuklandi.",
+      "uploadError": "Hujjatni yuklab bo'lmadi."
+    },
+    "company": {
+      "title": "Kompaniya ma'lumotlari",
+      "legalName": "Yuridik nomi",
+      "inn": "STIR",
+      "type": "Kompaniya turi",
+      "bank": "Bank",
+      "mfo": "MFO",
+      "defaultAddress": "Asosiy manzil",
+      "loadError": "Kompaniya ma'lumotlarini yuklab bo'lmadi."
+    }
   }
 }
