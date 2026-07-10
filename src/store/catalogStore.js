@@ -77,16 +77,20 @@ function normalizeTaxonomyItem(item, index = 0) {
     return { id: item, value: item, label: item, count: null, children: [] }
   }
 
-  const value = String(item.name || item.label || item.title || item.value || item.id || index)
+  const name = String(item.name || item.label || item.title || item.value || item.id || index)
+  const id = String(item.code || item.id || item.ref || item.uuid || name)
   const childrenSource = item.children || item.items || item.groups || []
   return {
-    id: String(item.id || item.ref || value),
-    value,
-    label: item.label || item.name || item.title || value,
+    id,
+    // /api/unf/products/ expects the group filter to be the folder/category name, not code.
+    value: name,
+    label: item.label || item.name || item.title || name,
     parentId: String(
-      item.parent?.id ||
+      item.parent?.code ||
+        item.parent?.id ||
         item.parent?.ref ||
         item.parent?.name ||
+        item.parent_code ||
         item.parent_id ||
         item.parentId ||
         item.parent ||
