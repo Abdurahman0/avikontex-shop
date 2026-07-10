@@ -3,6 +3,7 @@ import { HiCheckCircle } from 'react-icons/hi2'
 import { useTranslation } from 'react-i18next'
 import EmptyState from '../components/common/EmptyState'
 import { getLocalizedProduct } from '../data/products'
+import { TEST_PRODUCT_IMAGE } from '../store/catalogStore'
 import { getProductById, useShopStore } from '../store/shopStore'
 import { formatOrderDate } from '../utils/formatOrderDate'
 import { formatPrice } from '../utils/formatPrice'
@@ -122,7 +123,7 @@ function TrackOrder() {
                   className='flex items-center gap-3 rounded-xl border border-slate-200 p-3'
                 >
                   <img
-                    src={baseProduct.images[0]}
+                    src={TEST_PRODUCT_IMAGE}
                     alt={localizedProduct.name}
                     className='h-16 w-16 rounded-lg object-cover'
                   />

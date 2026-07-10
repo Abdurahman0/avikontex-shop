@@ -1,15 +1,18 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { commerceService } from '../services/commerceService'
-import { normalizeCommerceProduct, useCatalogStore } from './catalogStore'
+import { TEST_PRODUCT_IMAGE, normalizeCommerceProduct, useCatalogStore } from './catalogStore'
 
 if (typeof window !== 'undefined') {
   localStorage.removeItem('avikontex-shop-state-v2')
   localStorage.removeItem('avikontex-shop-state-v3')
 }
 
+const withTestImage = product =>
+  product ? { ...product, images: [TEST_PRODUCT_IMAGE] } : null
+
 const resolveProduct = (productId, snapshots = {}) =>
-  useCatalogStore.getState().getProductById(productId) || snapshots[productId]
+  withTestImage(useCatalogStore.getState().getProductById(productId) || snapshots[productId])
 
 const clampQuantity = (quantity, stock) => {
   if (quantity < 0) return 0

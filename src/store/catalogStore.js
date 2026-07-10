@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { commerceService } from '../services/commerceService'
 
 let latestRequestId = 0
+export const TEST_PRODUCT_IMAGE = '/product-test-image.svg'
 
 function numberOrNull(...values) {
   for (const value of values) {
@@ -11,18 +12,8 @@ function numberOrNull(...values) {
   return null
 }
 
-function normalizeImages(product) {
-  const candidates = [
-    product.imageUrl,
-    product.image_url,
-    product.image,
-    ...(Array.isArray(product.images) ? product.images : []),
-    ...(Array.isArray(product.gallery) ? product.gallery : []),
-  ]
-    .map(image => (typeof image === 'object' ? image.url || image.imageUrl : image))
-    .filter(Boolean)
-
-  return [...new Set(candidates)]
+function normalizeImages() {
+  return [TEST_PRODUCT_IMAGE]
 }
 
 function getStock(product) {

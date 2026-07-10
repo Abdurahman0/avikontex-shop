@@ -4,6 +4,7 @@ import { HiCheckCircle } from 'react-icons/hi2'
 import { useTranslation } from 'react-i18next'
 import EmptyState from '../components/common/EmptyState'
 import { getLocalizedProduct } from '../data/products'
+import { TEST_PRODUCT_IMAGE } from '../store/catalogStore'
 import { getProductById, useShopStore } from '../store/shopStore'
 import { formatOrderDate } from '../utils/formatOrderDate'
 import { formatPrice } from '../utils/formatPrice'
@@ -52,7 +53,7 @@ function Orders() {
 
             return {
               productId: item.productId,
-              image: baseProduct.images[0],
+              image: TEST_PRODUCT_IMAGE,
               name: localizedProduct.name,
               quantity: item.quantity,
             }
