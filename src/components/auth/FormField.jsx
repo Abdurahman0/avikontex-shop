@@ -7,14 +7,14 @@ export default function FormField({ label, error, hint, type = 'text', className
   const isPassword = type === 'password'
 
   return (
-    <label className={`block ${className}`}>
+    <label className={`block min-w-0 ${className}`}>
       <span className='mb-1.5 block text-sm font-semibold text-slate-700'>{label}</span>
       <span className='relative block'>
         <input
           {...props}
           type={isPassword && showPassword ? 'text' : type}
           aria-invalid={Boolean(error)}
-          className={`w-full rounded-xl border bg-white px-3.5 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+          className={`min-w-0 w-full rounded-xl border bg-white px-3.5 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:ring-4 ${
             error
               ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
               : 'border-slate-300 focus:border-blue-600 focus:ring-blue-100'

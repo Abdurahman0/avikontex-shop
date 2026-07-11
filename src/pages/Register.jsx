@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import {
   HiArrowRight,
+  HiOutlineBriefcase,
   HiOutlineBuildingOffice2,
+  HiOutlineBuildingLibrary,
   HiOutlineChevronDown,
   HiOutlineIdentification,
   HiOutlineLockClosed,
@@ -12,6 +14,8 @@ import {
 } from 'react-icons/hi2'
 import AuthShell from '../components/auth/AuthShell'
 import FormField from '../components/auth/FormField'
+import HandmadeDatePicker from '../components/common/HandmadeDatePicker'
+import { unwrapPayload } from '../services/apiClient'
 import { authService } from '../services/authService'
 import { digitsOnly, normalizePhone, omitEmptyValues } from '../utils/authForm'
 
@@ -28,7 +32,7 @@ const initialValues = {
   pinfl: '',
   birth_date: '',
   gender: '',
-  company_type: 'mchj',
+  company_type: 'yatt',
   company_name: '',
   inn: '',
   settlement_account: '',
@@ -90,8 +94,8 @@ function ChoiceButtons({ label, name, value, options, onChange, error }) {
 
 function FormSection({ icon: Icon, title, description, children }) {
   return (
-    <fieldset className='rounded-2xl border border-slate-200 p-4 sm:p-6'>
-      <legend className='px-2'>
+    <fieldset className='min-w-0 max-w-full rounded-2xl border border-slate-200 p-4 sm:p-6'>
+      <legend className='max-w-full px-2'>
         <span className='flex items-center gap-2 text-base font-bold text-slate-950'>
           <Icon className='text-xl text-blue-700' />
           {title}
@@ -125,8 +129,13 @@ export default function Register() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const requestedType = searchParams.get('type')
   const [accountType, setAccountType] = useState(
-    searchParams.get('type') === 'company' ? 'company' : 'person'
+    ['yatt', 'mchj'].includes(requestedType)
+      ? requestedType
+      : requestedType === 'company'
+        ? 'mchj'
+        : 'jismoniy'
   )
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
@@ -139,13 +148,11 @@ export default function Register() {
     ],
     [t]
   )
-  const companyTypeOptions = useMemo(
-    () => [
-      { value: 'mchj', label: t('auth.options.mchj') },
-      { value: 'yatt', label: t('auth.options.yatt') },
-    ],
-    [t]
-  )
+  const isBusiness = ['yatt', 'mchj'].includes(accountType)
+  const isYatt = accountType === 'yatt'
+  const today = new Date()
+  const maxBirthDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+  const initialBirthView = `${today.getFullYear() - 25}-01-01`
 
   const setValue = (name, value) => {
     setValues(current => ({ ...current, [name]: value }))
@@ -154,7 +161,7 @@ export default function Register() {
 
   const validate = () => {
     const nextErrors = {}
-    const requiredFields = accountType === 'company' ? companyRequiredFields : personRequiredFields
+    const requiredFields = isBusiness ? companyRequiredFields : personRequiredFields
     requiredFields.forEach(field => {
       if (!String(values[field] || '').trim()) nextErrors[field] = t('auth.validation.required')
     })
@@ -170,10 +177,16 @@ export default function Register() {
     if (values.confirm_password && values.password !== values.confirm_password) {
       nextErrors.confirm_password = t('auth.validation.passwordMatch')
     }
-    if (accountType === 'company' && values.pinfl.length !== 14) {
+    if (isBusiness && values.passport_series.length !== 2) {
+      nextErrors.passport_series = t('auth.validation.passportSeries')
+    }
+    if (isBusiness && values.passport_number.length !== 7) {
+      nextErrors.passport_number = t('auth.validation.passportNumber')
+    }
+    if (isBusiness && values.pinfl.length !== 14) {
       nextErrors.pinfl = t('auth.validation.pinfl')
     }
-    if (accountType === 'company' && values.inn.length !== 9) {
+    if (isBusiness && values.inn.length !== 9) {
       nextErrors.inn = t('auth.validation.inn')
     }
     return nextErrors
@@ -192,8 +205,9 @@ export default function Register() {
     const payload = omitEmptyValues({ ...values, phone, email: values.email.trim().toLowerCase() })
     setIsSubmitting(true)
     try {
-      if (accountType === 'company') {
-        await authService.registerCompany(payload)
+      let response
+      if (isBusiness) {
+        response = await authService.registerCompany({ ...payload, company_type: accountType })
       } else {
         const companyOnlyFields = [
           'company_type',
@@ -206,11 +220,14 @@ export default function Register() {
           'real_address',
         ]
         companyOnlyFields.forEach(field => delete payload[field])
-        await authService.registerPerson({ ...payload, account_type: 'jismoniy' })
+        response = await authService.registerPerson({ ...payload, account_type: 'jismoniy' })
       }
 
+      const devOtp = unwrapPayload(response)?.dev_otp || ''
       sessionStorage.setItem('avikontex-pending-phone', phone)
-      navigate('/verify-otp', { state: { phone } })
+      sessionStorage.removeItem('avikontex-dev-otp')
+      if (devOtp) sessionStorage.setItem('avikontex-dev-otp', String(devOtp))
+      navigate('/verify-otp', { state: { phone, devOtp } })
     } catch (error) {
       setErrors({ ...error.fieldErrors, form: t('auth.errors.registrationFailed') })
     } finally {
@@ -236,29 +253,42 @@ export default function Register() {
     >
       <div className='mb-8 grid gap-3 sm:grid-cols-2'>
         {[
-          { value: 'person', icon: HiOutlineUser },
-          { value: 'company', icon: HiOutlineBuildingOffice2 },
+          { value: 'jismoniy', icon: HiOutlineUser },
+          { value: 'yatt', icon: HiOutlineBriefcase },
+          { value: 'mchj', icon: HiOutlineBuildingOffice2 },
+          { value: 'budjet', icon: HiOutlineBuildingLibrary, disabled: true },
         ].map(option => (
           <button
             key={option.value}
             type='button'
+            disabled={option.disabled}
             onClick={() => {
               setAccountType(option.value)
+              if (['yatt', 'mchj'].includes(option.value)) {
+                setValues(current => ({ ...current, company_type: option.value }))
+              }
               setErrors({})
             }}
-            className={`flex items-start gap-3 rounded-2xl border p-4 text-left transition ${
+            className={`relative min-w-0 flex items-start gap-3 rounded-2xl border p-4 text-left transition ${
               accountType === option.value
                 ? 'border-blue-600 bg-blue-50 ring-4 ring-blue-50'
-                : 'border-slate-200 hover:border-slate-400'
+                : option.disabled
+                  ? 'cursor-not-allowed border-slate-200 bg-slate-50 opacity-75'
+                  : 'border-slate-200 hover:border-slate-400'
             }`}
           >
             <span className={`rounded-xl p-2.5 ${accountType === option.value ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-700'}`}>
               <option.icon className='text-xl' />
             </span>
-            <span>
-              <span className='block text-sm font-bold text-slate-950'>{t(`auth.types.${option.value}`)}</span>
+            <span className='min-w-0'>
+              <span className={`block text-sm font-bold text-slate-950 ${option.disabled ? 'pr-28' : ''}`}>{t(`auth.types.${option.value}`)}</span>
               <span className='mt-1 block text-xs leading-5 text-slate-500'>{t(`auth.types.${option.value}Hint`)}</span>
             </span>
+            {option.disabled ? (
+              <span className='absolute right-3 top-3 rounded-full bg-slate-200 px-2 py-1 text-[10px] font-black uppercase tracking-wide text-slate-600'>
+                {t('auth.types.operatorOnly')}
+              </span>
+            ) : null}
           </button>
         ))}
       </div>
@@ -270,35 +300,10 @@ export default function Register() {
       ) : null}
 
       <form onSubmit={onSubmit} className='space-y-6' noValidate>
-        {accountType === 'company' ? (
-          <FormSection
-            icon={HiOutlineBuildingOffice2}
-            title={t('auth.sections.company')}
-            description={t('auth.sections.companyDescription')}
-          >
-            <div className='grid gap-4 sm:grid-cols-2'>
-              <FormField {...input('company_name')} className='sm:col-span-2' />
-              <ChoiceButtons
-                label={t('auth.fields.company_type')}
-                name='company_type'
-                value={values.company_type}
-                options={companyTypeOptions}
-                onChange={setValue}
-              />
-              <FormField
-                {...input('inn')}
-                inputMode='numeric'
-                maxLength={9}
-                onChange={event => setValue('inn', digitsOnly(event.target.value, 9))}
-              />
-            </div>
-          </FormSection>
-        ) : null}
-
         <FormSection
           icon={HiOutlineIdentification}
-          title={accountType === 'company' ? t('auth.sections.director') : t('auth.sections.personal')}
-          description={accountType === 'company' ? t('auth.sections.directorDescription') : ''}
+          title={isBusiness ? t(isYatt ? 'auth.sections.entrepreneur' : 'auth.sections.director') : t('auth.sections.personal')}
+          description={isBusiness ? t(isYatt ? 'auth.sections.entrepreneurDescription' : 'auth.sections.directorDescription') : ''}
         >
           <div className='grid gap-4 sm:grid-cols-2'>
             <FormField {...input('last_name')} />
@@ -314,17 +319,18 @@ export default function Register() {
             <FormField {...input('email')} type='email' autoComplete='email' />
           </div>
 
-          {accountType === 'company' ? (
+          {isBusiness ? (
             <div className='mt-4 grid gap-4 sm:grid-cols-2'>
               <FormField
                 {...input('passport_series')}
-                maxLength={10}
-                onChange={event => setValue('passport_series', event.target.value.toUpperCase())}
+                maxLength={2}
+                onChange={event => setValue('passport_series', event.target.value.replace(/[^a-z]/gi, '').toUpperCase().slice(0, 2))}
               />
               <FormField
                 {...input('passport_number')}
-                maxLength={20}
-                onChange={event => setValue('passport_number', event.target.value.toUpperCase())}
+                inputMode='numeric'
+                maxLength={7}
+                onChange={event => setValue('passport_number', digitsOnly(event.target.value, 7))}
               />
               <FormField
                 {...input('pinfl')}
@@ -332,7 +338,15 @@ export default function Register() {
                 maxLength={14}
                 onChange={event => setValue('pinfl', digitsOnly(event.target.value, 14))}
               />
-              <FormField {...input('birth_date')} type='date' max={new Date().toISOString().slice(0, 10)} />
+              <HandmadeDatePicker
+                label={t('auth.fields.birth_date')}
+                value={values.birth_date}
+                onChange={value => setValue('birth_date', value)}
+                error={errors.birth_date}
+                max={maxBirthDate}
+                initialViewDate={initialBirthView}
+                required
+              />
               <ChoiceButtons
                 label={t('auth.fields.gender')}
                 name='gender'
@@ -357,7 +371,14 @@ export default function Register() {
                   maxLength={14}
                   onChange={event => setValue('pinfl', digitsOnly(event.target.value, 14))}
                 />
-                <FormField {...input('birth_date')} type='date' max={new Date().toISOString().slice(0, 10)} />
+                <HandmadeDatePicker
+                  label={t('auth.fields.birth_date')}
+                  value={values.birth_date}
+                  onChange={value => setValue('birth_date', value)}
+                  error={errors.birth_date}
+                  max={maxBirthDate}
+                  initialViewDate={initialBirthView}
+                />
                 <ChoiceButtons
                   label={t('auth.fields.gender')}
                   name='gender'
@@ -371,7 +392,35 @@ export default function Register() {
           )}
         </FormSection>
 
-        {accountType === 'company' ? (
+        {isBusiness ? (
+          <FormSection
+            icon={isYatt ? HiOutlineBriefcase : HiOutlineBuildingOffice2}
+            title={t(isYatt ? 'auth.sections.business' : 'auth.sections.company')}
+            description={t(isYatt ? 'auth.sections.businessDescription' : 'auth.sections.companyDescription')}
+          >
+            <div className='grid gap-4 sm:grid-cols-2'>
+              <FormField
+                {...input('company_name', {
+                  label: t(isYatt ? 'auth.fields.business_name' : 'auth.fields.company_name'),
+                  placeholder: t(isYatt ? 'auth.placeholders.business_name' : 'auth.placeholders.company_name'),
+                })}
+                className='sm:col-span-2'
+              />
+              <div className='rounded-xl border border-blue-100 bg-blue-50 px-4 py-3'>
+                <p className='text-xs font-bold uppercase tracking-wide text-blue-600'>{t('auth.fields.company_type')}</p>
+                <p className='mt-1 text-sm font-black text-slate-950'>{t(`auth.types.${accountType}`)}</p>
+              </div>
+              <FormField
+                {...input('inn')}
+                inputMode='numeric'
+                maxLength={9}
+                onChange={event => setValue('inn', digitsOnly(event.target.value, 9))}
+              />
+            </div>
+          </FormSection>
+        ) : null}
+
+        {isBusiness ? (
           <details className='rounded-2xl border border-slate-200'>
             <summary className='flex cursor-pointer list-none items-center justify-between p-4 text-sm font-bold text-slate-900 sm:px-6'>
               {t('auth.sections.companyOptional')}

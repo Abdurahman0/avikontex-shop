@@ -143,7 +143,7 @@ export default function LegalEntityReviewPanel({ verification }) {
             {t(`verification.status.${tone}`)}
           </span>
           <h2 className='mt-3 text-2xl font-black tracking-tight text-slate-950'>
-            {t('verification.legalReviewTitle')}
+            {t(verification.clientType === 'yatt' ? 'verification.yattReviewTitle' : 'verification.legalReviewTitle')}
           </h2>
           <p className='mt-2 text-sm leading-6 text-slate-600'>
             {verification.isBlocked
@@ -284,6 +284,7 @@ export default function LegalEntityReviewPanel({ verification }) {
 
 LegalEntityReviewPanel.propTypes = {
   verification: PropTypes.shape({
+    clientType: PropTypes.string.isRequired,
     status: PropTypes.string,
     isBlocked: PropTypes.bool.isRequired,
     rejectionReason: PropTypes.string,

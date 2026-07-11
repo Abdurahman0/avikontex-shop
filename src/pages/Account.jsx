@@ -22,6 +22,13 @@ export default function Account() {
   const verification = getClientVerification(user)
   const isCompany = verification.requiresReview
   const verificationTone = getVerificationTone(verification.status)
+  const accountType = verification.clientType || user?.account_type || 'jismoniy'
+  const accountTypeStyles = {
+    jismoniy: 'bg-sky-400/15 text-sky-100 ring-sky-300/20',
+    yatt: 'bg-amber-300/15 text-amber-100 ring-amber-200/20',
+    yuridik: 'bg-emerald-300/15 text-emerald-100 ring-emerald-200/20',
+    budjet: 'bg-violet-300/15 text-violet-100 ring-violet-200/20',
+  }
 
   const onLogout = () => {
     logout()
@@ -37,7 +44,9 @@ export default function Account() {
               {isCompany ? <HiOutlineBuildingOffice2 className='text-3xl' /> : <HiOutlineUserCircle className='text-4xl' />}
             </span>
             <div>
-              <p className='text-sm text-blue-200'>{t(isCompany ? 'auth.types.company' : 'auth.types.person')}</p>
+              <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-black ring-1 ${accountTypeStyles[accountType] || accountTypeStyles.jismoniy}`}>
+                {t(`auth.accountTypes.${accountType}`)}
+              </span>
               <h1 className='mt-1 text-2xl font-semibold sm:text-3xl'>{displayName}</h1>
             </div>
           </div>

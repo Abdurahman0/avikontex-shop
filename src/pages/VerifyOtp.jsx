@@ -15,6 +15,7 @@ export default function VerifyOtp() {
   const navigate = useNavigate()
   const verifyOtp = useAuthStore(state => state.verifyOtp)
   const phone = location.state?.phone || sessionStorage.getItem('avikontex-pending-phone') || ''
+  const devOtp = location.state?.devOtp || sessionStorage.getItem('avikontex-dev-otp') || ''
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -38,6 +39,7 @@ export default function VerifyOtp() {
     try {
       await verifyOtp({ phone, code })
       sessionStorage.removeItem('avikontex-pending-phone')
+      sessionStorage.removeItem('avikontex-dev-otp')
       navigate('/account', { replace: true })
     } catch {
       setError(t('auth.otp.invalid'))
@@ -84,6 +86,24 @@ export default function VerifyOtp() {
         <div className='mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-700'>
           <HiOutlineDevicePhoneMobile className='text-3xl' />
         </div>
+        {devOtp ? (
+          <button
+            type='button'
+            onClick={() => {
+              setCode(String(devOtp))
+              setError('')
+            }}
+            className='mb-5 flex w-full items-center justify-between rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-left'
+          >
+            <span>
+              <span className='block text-xs font-black uppercase tracking-wider text-amber-700'>{t('auth.otp.testCode')}</span>
+              <span className='mt-1 block text-sm font-semibold text-amber-900'>{t('auth.otp.testCodeHint')}</span>
+            </span>
+            <span className='rounded-xl bg-white px-3 py-2 font-mono text-lg font-black tracking-widest text-amber-900 shadow-sm'>
+              {devOtp}
+            </span>
+          </button>
+        ) : null}
         <form onSubmit={onSubmit} noValidate>
           <label className='block text-sm font-semibold text-slate-700' htmlFor='otp-code'>
             {t('auth.fields.otp')}

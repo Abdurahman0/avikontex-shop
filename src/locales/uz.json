@@ -9,6 +9,19 @@
     "ru": "Русский",
     "en": "English"
   },
+  "calendar": {
+    "months": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
+    "monthsShort": ["Yan", "Fev", "Mar", "Apr", "May", "Iyn", "Iyl", "Avg", "Sen", "Okt", "Noy", "Dek"],
+    "weekdaysShort": ["Du", "Se", "Ch", "Pa", "Ju", "Sh", "Ya"],
+    "placeholder": "Sanani tanlang",
+    "dialogLabel": "Sana tanlash kalendari",
+    "previousMonth": "Oldingi oy",
+    "nextMonth": "Keyingi oy",
+    "previousYears": "Oldingi yillar",
+    "nextYears": "Keyingi yillar",
+    "clear": "Tozalash",
+    "isoFormat": "YYYY-MM-DD"
+  },
   "nav": {
     "home": "Bosh sahifa",
     "catalog": "Katalog",
@@ -410,7 +423,22 @@
       "person": "Jismoniy shaxs",
       "company": "Yuridik shaxs",
       "personHint": "Shaxsiy xarid va buyurtmalar uchun",
-      "companyHint": "MChJ yoki YATT nomidan xarid qilish uchun"
+      "companyHint": "MChJ yoki YaTT nomidan xarid qilish uchun",
+      "jismoniy": "Jismoniy shaxs",
+      "jismoniyHint": "Shaxsiy xarid va buyurtmalar uchun",
+      "yatt": "YaTT",
+      "yattHint": "Yakka tartibdagi tadbirkor sifatida xarid qilish uchun",
+      "mchj": "MChJ",
+      "mchjHint": "Kompaniya nomidan shartnoma asosida xarid qilish uchun",
+      "budjet": "Budjet muassasasi",
+      "budjetHint": "Davlat va budjet tashkilotlari uchun akkaunt operator tomonidan ochiladi",
+      "operatorOnly": "Operator orqali"
+    },
+    "accountTypes": {
+      "jismoniy": "Jismoniy shaxs",
+      "yatt": "YaTT",
+      "yuridik": "MChJ",
+      "budjet": "Budjet muassasasi"
     },
     "login": {
       "eyebrow": "Kabinetga kirish",
@@ -437,7 +465,9 @@
       "resend": "Kodni qayta yuborish",
       "resendIn": "Kodni {{seconds}} soniyadan keyin qayta yuborish mumkin",
       "missingTitle": "Tasdiqlanadigan raqam topilmadi",
-      "missingDescription": "Avval ro'yxatdan o'tish formasini to'ldiring. Shundan keyin SMS-kod yuboriladi."
+      "missingDescription": "Avval ro'yxatdan o'tish formasini to'ldiring. Shundan keyin SMS-kod yuboriladi.",
+      "testCode": "Test muhiti kodi",
+      "testCodeHint": "Kodni avtomatik kiritish uchun bosing"
     },
     "fields": {
       "login": "Telefon raqami yoki email",
@@ -455,6 +485,7 @@
       "gender": "Jins",
       "company_type": "Tashkilot turi",
       "company_name": "Tashkilot nomi",
+      "business_name": "Tadbirkorlik nomi",
       "inn": "STIR",
       "settlement_account": "Hisob raqami",
       "bank": "Bank nomi",
@@ -479,6 +510,7 @@
       "gender": "",
       "company_type": "",
       "company_name": "Tashkilotning to'liq nomi",
+      "business_name": "Masalan, Yusupov Tadbirkorlik",
       "inn": "9 xonali STIR",
       "settlement_account": "Hisob raqami",
       "bank": "Bank nomi",
@@ -489,8 +521,12 @@
     "sections": {
       "company": "Tashkilot ma'lumotlari",
       "companyDescription": "Shartnoma va hisob hujjatlari uchun rasmiy ma'lumotlarni kiriting.",
+      "business": "Tadbirkorlik rekvizitlari",
+      "businessDescription": "YaTT nomi va STIR ma'lumotlarini kiriting. Bank rekvizitlarini keyinroq ham qo'shish mumkin.",
       "director": "Rahbar va aloqa ma'lumotlari",
       "directorDescription": "Ro'yxatdan o'tuvchi shaxs tashkilot rahbari sifatida CRM tizimiga biriktiriladi.",
+      "entrepreneur": "Tadbirkor va aloqa ma'lumotlari",
+      "entrepreneurDescription": "Pasport, JSHSHIR va aloqa ma'lumotlarini tadbirkorning o'z nomidan kiriting.",
       "personal": "Shaxsiy va aloqa ma'lumotlari",
       "optionalIdentity": "Qo'shimcha shaxsiy ma'lumotlar (ixtiyoriy)",
       "companyOptional": "Bank rekvizitlari va manzillar (ixtiyoriy)",
@@ -524,6 +560,8 @@
       "phone": "Telefon raqamini +998XXXXXXXXX formatida kiriting.",
       "passwordLength": "Parol kamida 6 ta belgidan iborat bo'lishi kerak.",
       "passwordMatch": "Parollar bir xil emas.",
+      "passportSeries": "Pasport seriyasi 2 ta harfdan iborat bo'lishi kerak.",
+      "passportNumber": "Pasport raqami 7 ta raqamdan iborat bo'lishi kerak.",
       "pinfl": "JSHSHIR 14 ta raqamdan iborat bo'lishi kerak.",
       "inn": "STIR 9 ta raqamdan iborat bo'lishi kerak.",
       "otp": "6 xonali tasdiqlash kodini kiriting."
@@ -554,12 +592,13 @@
   },
   "verification": {
     "legalReviewTitle": "Yuridik akkaunt operator tekshiruvida",
-    "legalReviewDescription": "Kompaniya ma'lumotlari va hujjatlar operator tomonidan tasdiqlangandan keyin buyurtma berish ochiladi.",
-    "pendingTitle": "Kompaniya akkauntingiz tekshirilmoqda",
-    "pendingDescription": "Operator kompaniya ma'lumotlari va hujjatlarni tasdiqlagandan keyin buyurtma bera olasiz.",
-    "verifiedTitle": "Kompaniya akkaunti tasdiqlangan",
-    "verifiedDescription": "Yuridik akkaunt tasdiqlangan. Buyurtma berish ochiq.",
-    "rejectedTitle": "Kompaniya akkaunti rad etildi",
+    "yattReviewTitle": "YaTT akkaunti operator tekshiruvida",
+    "legalReviewDescription": "Tadbirkorlik yoki tashkilot ma'lumotlari operator tomonidan tasdiqlangandan keyin buyurtma berish ochiladi.",
+    "pendingTitle": "Biznes akkauntingiz tekshirilmoqda",
+    "pendingDescription": "Operator ma'lumotlar va hujjatlarni tasdiqlagandan keyin buyurtma bera olasiz.",
+    "verifiedTitle": "Biznes akkaunti tasdiqlangan",
+    "verifiedDescription": "Akkaunt tasdiqlangan. Buyurtma berish ochiq.",
+    "rejectedTitle": "Biznes akkaunti rad etildi",
     "rejectedDescription": "Rad etildi: {{reason}}",
     "noReason": "Sabab ko'rsatilmagan",
     "status": {

@@ -9,6 +9,19 @@
     "ru": "Russian",
     "en": "English"
   },
+  "calendar": {
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "monthsShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "weekdaysShort": ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    "placeholder": "Select a date",
+    "dialogLabel": "Date selection calendar",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "previousYears": "Previous years",
+    "nextYears": "Next years",
+    "clear": "Clear",
+    "isoFormat": "YYYY-MM-DD"
+  },
   "nav": {
     "home": "Home",
     "catalog": "Catalog",
@@ -410,7 +423,22 @@
       "person": "Individual",
       "company": "Legal entity",
       "personHint": "For personal purchases and orders",
-      "companyHint": "For purchases on behalf of an LLC or sole proprietor"
+      "companyHint": "For purchases on behalf of an LLC or sole proprietor",
+      "jismoniy": "Individual",
+      "jismoniyHint": "For personal purchases and orders",
+      "yatt": "Sole proprietor",
+      "yattHint": "For purchases as a registered individual entrepreneur",
+      "mchj": "LLC",
+      "mchjHint": "For contract purchases on behalf of a company",
+      "budjet": "Budget organization",
+      "budjetHint": "Government and budget organization accounts are created by an operator",
+      "operatorOnly": "Via operator"
+    },
+    "accountTypes": {
+      "jismoniy": "Individual",
+      "yatt": "Sole proprietor",
+      "yuridik": "LLC",
+      "budjet": "Budget organization"
     },
     "login": {
       "eyebrow": "Account sign in",
@@ -437,7 +465,9 @@
       "resend": "Resend code",
       "resendIn": "You can resend the code in {{seconds}} seconds",
       "missingTitle": "No phone number to verify",
-      "missingDescription": "Complete the registration form first. We will then send a verification code by SMS."
+      "missingDescription": "Complete the registration form first. We will then send a verification code by SMS.",
+      "testCode": "Test environment code",
+      "testCodeHint": "Click to fill in the code"
     },
     "fields": {
       "login": "Phone number or email",
@@ -455,6 +485,7 @@
       "gender": "Gender",
       "company_type": "Company type",
       "company_name": "Company name",
+      "business_name": "Business name",
       "inn": "TIN",
       "settlement_account": "Settlement account",
       "bank": "Bank name",
@@ -479,6 +510,7 @@
       "gender": "",
       "company_type": "",
       "company_name": "Full legal name",
+      "business_name": "For example, Yusupov Enterprise",
       "inn": "9-digit TIN",
       "settlement_account": "Settlement account",
       "bank": "Bank name",
@@ -489,8 +521,12 @@
     "sections": {
       "company": "Company details",
       "companyDescription": "Enter official details for contracts and billing documents.",
+      "business": "Sole proprietor details",
+      "businessDescription": "Enter the business name and TIN. Bank details can be added later.",
       "director": "Director and contact details",
       "directorDescription": "The registering user will be linked in the CRM as the company director.",
+      "entrepreneur": "Entrepreneur and contact details",
+      "entrepreneurDescription": "Enter the entrepreneur's own passport, PINFL, and contact details.",
       "personal": "Personal and contact details",
       "optionalIdentity": "Additional identity details (optional)",
       "companyOptional": "Bank details and addresses (optional)",
@@ -524,6 +560,8 @@
       "phone": "Enter the phone number as +998XXXXXXXXX.",
       "passwordLength": "The password must contain at least 6 characters.",
       "passwordMatch": "The passwords do not match.",
+      "passportSeries": "The passport series must contain 2 letters.",
+      "passportNumber": "The passport number must contain 7 digits.",
       "pinfl": "PINFL must contain 14 digits.",
       "inn": "TIN must contain 9 digits.",
       "otp": "Enter the six-digit verification code."
@@ -554,12 +592,13 @@
   },
   "verification": {
     "legalReviewTitle": "Legal entity account is under operator review",
-    "legalReviewDescription": "Ordering opens after an operator verifies the company details and documents.",
-    "pendingTitle": "Your company account is under review",
-    "pendingDescription": "You will be able to place orders after the operator approves the company details and documents.",
-    "verifiedTitle": "Company account verified",
-    "verifiedDescription": "The legal entity account is verified. Ordering is enabled.",
-    "rejectedTitle": "Company account rejected",
+    "yattReviewTitle": "Sole proprietor account is under operator review",
+    "legalReviewDescription": "Ordering opens after an operator verifies the business or organization details and documents.",
+    "pendingTitle": "Your business account is under review",
+    "pendingDescription": "You will be able to place orders after the operator approves the details and documents.",
+    "verifiedTitle": "Business account verified",
+    "verifiedDescription": "The account is verified. Ordering is enabled.",
+    "rejectedTitle": "Business account rejected",
     "rejectedDescription": "Rejected: {{reason}}",
     "noReason": "No reason provided",
     "status": {
