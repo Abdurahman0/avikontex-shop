@@ -1,7 +1,7 @@
 import { tokenStorage } from './tokenStorage'
 
 const DEFAULT_API_URL =
-  'https://aa64-2a05-45c2-208e-1f00-7729-5020-a36-d7a6.ngrok-free.app'
+  'https://7188-2a05-45c2-407f-c800-50e9-fbf9-26d7-fe4.ngrok-free.app'
 const DEVICE_ID_KEY = 'avikontex-device-id'
 
 export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_URL).replace(
